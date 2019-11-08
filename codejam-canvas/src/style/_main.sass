@@ -1,0 +1,23 @@
+@import './colors'
+    
+main 
+    margin-top: 10px
+
+    .menu 
+        width: 200px
+        float: left
+        margin-left: 30px
+        +flex()
+    
+        .menu_button
+            height: 30px
+            width: 100%
+            margin-top: 10px
+            border: 1px solid black
+            text-align: center
+            &:hover
+                color: red
+
+            span 
+                user-select: none
+                margin-top: 5px
