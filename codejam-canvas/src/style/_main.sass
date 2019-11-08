@@ -4,20 +4,50 @@ main
     margin-top: 10px
 
     .menu 
-        width: 200px
-        float: left
-        margin-left: 30px
         +flex()
-    
-        .menu_button
-            height: 30px
-            width: 100%
-            margin-top: 10px
-            border: 1px solid black
-            text-align: center
-            &:hover
-                color: red
+        width: 300px
 
-            span 
-                user-select: none
-                margin-top: 5px
+        ._data_menu
+            width: 200px
+            float: left
+            margin-left: 30px
+            +flex()
+    
+            .menu_button
+                height: 30px
+                width: 100%
+                margin-top: 10px
+                border: 1px solid black
+                text-align: center
+                &:hover
+                    color: red
+
+                span 
+                    user-select: none
+                    margin-top: 5px
+
+        ._artist
+            +flex(row)
+            margin-top: 20px
+
+            ._artist_item 
+                width: 64px
+                height: 64px
+                margin: 2px
+                border: 1px solid black
+
+            ._artist_item[name='pencil']
+                background: url('~../assets/icons/pancil.png') no-repeat
+
+            ._artist_item[name='fill_bucket']
+                background: url('~../assets/icons/fill_bucket.png') no-repeat
+
+            ._artist_item[name='color_picker']
+                background: url('~../assets/icons/color_picker.png') no-repeat
+
+            ._artist_item
+                &:hover
+                    cursor: pointer
+                    background-size: 90%
+            .selected 
+                border: 2px solid yellowgreen

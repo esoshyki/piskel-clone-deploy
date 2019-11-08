@@ -4,7 +4,7 @@ import json32 from '../data/32x32.json'
 export default class Canvas {
     constructor() {
         this.handleButton = this.handleButton.bind(this)
-        this.canvas = document.querySelector('.canvas_main')
+        this.canvas = document.querySelector('.canvas_main');
     }
 
     handleButton(e) {
