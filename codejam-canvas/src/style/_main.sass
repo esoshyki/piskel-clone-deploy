@@ -9,9 +9,8 @@ main
         margin-bottom: -320px
 
         ._data_menu
-            width: 200px
+            width: 100%
             float: left
-            margin-left: 30px
             +flex()
     
             .menu_button
@@ -22,13 +21,17 @@ main
                 text-align: center
                 &:hover
                     color: red
+                    background: yellow
+                    transition-duration: 0.3s
+                    
 
                 span 
                     user-select: none
                     margin-top: 5px
 
         ._artist
-            +flex(row)
+            +flex(row, space-between)
+            width: 100%
             margin-top: 20px
 
             ._artist_item 
@@ -70,3 +73,40 @@ main
                 div:last-child 
                     width: 200px
                     text-align: center
+
+        ._color_pallete 
+            +flex
+        
+            ._rainbow 
+                +flex(row)
+                width: 100%
+                flex-wrap: wrap 
+
+                ._item
+                    width: 64px
+                    height: 64px
+                    border: 1px solid black
+                    margin: 5px
+                    &:hover
+                        cursor: pointer
+
+                div[color="#FF0000"]
+                    background: #FF0000
+
+                div[color="#FFA500"]
+                    background: #FFA500
+
+                div[color="#FFFF00"]
+                    background: #FFFF00
+
+                div[color="#008000"]
+                    background: #008000
+
+                div[color="#0000FF"]
+                    background: #0000FF
+
+                div[color="#00008B"]
+                    background: #00008B
+
+                div[color="#831383"]
+                    background: #831383

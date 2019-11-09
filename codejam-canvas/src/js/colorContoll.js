@@ -16,6 +16,7 @@ export default class ColorControll {
         this.checkColor = this.checkColor.bind(this);
         this.changeColorPallete = this.changeColorPallete.bind(this)
         this.previousColorClickHandler = this.previousColorClickHandler.bind(this);
+        this.colorPalette = document.querySelector('._rainbow')
 
 
     }
@@ -50,9 +51,6 @@ export default class ColorControll {
         this.ctx.fillStyle = color
         this.previousColorNode.style.background = this.currentColorNode.style.background;
         this.currentColorNode.style.background = color
-        // console.log(`this.previousColor = ${this.previousColor}`);
-        // console.log(`this.currentColor = ${this.currentColor}`);
-        // console.log(`this.ctx.fillstyle = ${this.ctx.fillstyle}`)
     }
 
     previousColorClickHandler() {
@@ -61,4 +59,12 @@ export default class ColorControll {
         this.changeColorPallete(prevString)
     }
 
+    start() {
+        this.colorPalette.addEventListener('click', (e) => {
+            if (e.target.className !== '_item') return
+
+            const color = e.target.getAttribute('color')
+            this.changeColorPallete(color)
+        })
+    }
 }

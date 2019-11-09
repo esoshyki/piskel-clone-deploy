@@ -88,5 +88,6 @@ export default class Artist {
         this.body.addEventListener('click', this.handleClick)
         this.canvas.addEventListener('mousedown', this.draw);
         this.colorContoll.previousColorNode.addEventListener('click', this.colorContoll.previousColorClickHandler)
+        this.colorContoll.start()
     }
 }
