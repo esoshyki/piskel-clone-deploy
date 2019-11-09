@@ -5,6 +5,7 @@ export default class Canvas {
     constructor() {
         this.handleButton = this.handleButton.bind(this)
         this.canvas = document.querySelector('.canvas_main');
+        this.currentColorNode = document.querySelector('._current_color')
     }
 
     handleButton(e) {
@@ -69,6 +70,7 @@ export default class Canvas {
         if (!size) return
         if (size === '4') this.drawHex(size, json4);
         if (size === '32') this.drawRGBA(size, json32) ;
+        this.canvas.getContext('2d').fillStyle = this.currentColorNode.style.background
     }
 
     start() {

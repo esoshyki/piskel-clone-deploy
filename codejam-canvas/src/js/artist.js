@@ -1,11 +1,13 @@
 import ColorContoll from './colorContoll'
+import PaintBucket from './paintBucket';
 
 export default class Artist {
     constructor(Canvas) {
         this.instrument = 'pencil';
         this.canvas = Canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.colorContoll = new ColorContoll(this.canvas, this.ctx)
+        this.colorContoll = new ColorContoll(this.canvas, this.ctx);
+        this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio)
         this.body = document.querySelector('._artist')
         this.selectedNode = this.body.querySelector('[name=pencil]');
         this.handleClick = this.handleClick.bind(this)
@@ -49,7 +51,6 @@ export default class Artist {
         if (!this.instrument) return // ничего не делает если инструмент не выбран
 
         const square = this.getSquare(e)
-        console.log(this.ctx.fillstyle)
         if (this.instrument === 'pencil')  {
             this.pencilDraw(square);
             this.canvas.addEventListener('mousemove', this.drawPath)
@@ -58,16 +59,19 @@ export default class Artist {
         
         if (this.instrument === 'color_picker') {
             this.colorContoll.pickColor(square)
-        } 
+        }
+
+        if (this.instrument === 'fill_bucket') {
+            this.paintBucket.startPath(square)
+        }
       }
 
     drawPath(e) {
         const square = this.getSquare(e)
-            this.pencilDraw(square)
+        this.pencilDraw(square)
     }
     
     pencilDraw(square) {
-        console.log(this.ctx.fillstyle)
         this.ctx.fillRect(square[0],square[1], square[2], square[2])
     }
 
