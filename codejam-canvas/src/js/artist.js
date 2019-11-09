@@ -1,16 +1,16 @@
+import ColorContoll from './colorContoll'
+
 export default class Artist {
     constructor(Canvas) {
         this.instrument = 'pencil';
         this.canvas = Canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.ctx.fillstyle = 'rgba(0,0,0,255)';
-        this.currentColor = [0,0,0,255];
-        this.previousColor = 'red';
+        this.colorContoll = new ColorContoll(this.canvas, this.ctx)
         this.body = document.querySelector('._artist')
+        this.selectedNode = this.body.querySelector('[name=pencil]');
         this.handleClick = this.handleClick.bind(this)
         this.draw = this.draw.bind(this);
         this.drawPath = this.drawPath.bind(this);
-        this.selectedNode = this.body.querySelector('[name=pencil]');
         this.ratio = 4;
     }
 
@@ -29,7 +29,6 @@ export default class Artist {
                 this.selectedNode.classList.remove('selected');
                 this.selectedNode = null
                 this.instrument = null
-                console.log(this.instrument)
                 return
             }
             // Отключение уже выбранной кнопки
@@ -44,34 +43,31 @@ export default class Artist {
         this.instrument = instrument
 
     }
-
-
+  
     draw(e) {
 
         if (!this.instrument) return // ничего не делает если инструмент не выбран
 
         const square = this.getSquare(e)
-
-        if (this.instrument === 'pencil') this.pencilDraw(square);
-
-        this.canvas.addEventListener('mousemove', this.drawPath)
-        this.canvas.addEventListener('mouseup', () => this.canvas.removeEventListener('mousemove', this.drawPath))
+        console.log(this.ctx.fillstyle)
+        if (this.instrument === 'pencil')  {
+            this.pencilDraw(square);
+            this.canvas.addEventListener('mousemove', this.drawPath)
+            this.canvas.addEventListener('mouseup', () => this.canvas.removeEventListener('mousemove', this.drawPath))
+        }
+        
+        if (this.instrument === 'color_picker') {
+            this.colorContoll.pickColor(square)
+        } 
       }
 
     drawPath(e) {
         const square = this.getSquare(e)
-        if (this.checkColor(square)) return
-        else {
             this.pencilDraw(square)
-        }
     }
     
-    checkColor(square) {
-        const c = [...this.ctx.getImageData(square[0]+2,square[1]+2,1,1).data];
-        return `${c}`=== `${this.currentColor}`
-    }
-
     pencilDraw(square) {
+        console.log(this.ctx.fillstyle)
         this.ctx.fillRect(square[0],square[1], square[2], square[2])
     }
 
@@ -87,7 +83,6 @@ export default class Artist {
     start() {
         this.body.addEventListener('click', this.handleClick)
         this.canvas.addEventListener('mousedown', this.draw);
-        console.log(this.selectedNode)
+        this.colorContoll.previousColorNode.addEventListener('click', this.colorContoll.previousColorClickHandler)
     }
-
 }

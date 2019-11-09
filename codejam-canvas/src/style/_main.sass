@@ -6,6 +6,7 @@ main
     .menu 
         +flex()
         width: 300px
+        margin-bottom: -320px
 
         ._data_menu
             width: 200px
@@ -51,3 +52,21 @@ main
                     background-size: 90%
             .selected 
                 border: 2px solid yellowgreen
+
+        ._color_menu
+            +flex
+            margin-top: 20px
+
+            div._line
+                +flex(row)
+                width: 100%
+                margin-bottom: 5px
+                
+                ._color 
+                    width: 64px
+                    height: 64px
+                    border: 1px solid black
+
+                div:last-child 
+                    width: 200px
+                    text-align: center
