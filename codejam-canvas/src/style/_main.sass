@@ -14,6 +14,8 @@ main
             +flex()
     
             .menu_button
+                +font28
+                padding-top: 5px
                 height: 30px
                 width: 100%
                 margin-top: 10px
@@ -54,7 +56,7 @@ main
                     cursor: pointer
                     background-size: 90%
             .selected 
-                border: 2px solid yellowgreen
+                border: 2px solid red
 
         ._color_menu
             +flex
@@ -69,6 +71,9 @@ main
                     width: 64px
                     height: 64px
                     border: 1px solid black
+
+                ._prev_color:hover
+                    cursor: pointer
 
                 div:last-child 
                     width: 200px

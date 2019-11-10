@@ -1,5 +1,6 @@
 export default class ColorControll {
     constructor(canvas, ctx) {
+
         this.canvas = canvas;
         this.ctx = ctx
         this.ctx.fillStyle = '#000000';
@@ -30,41 +31,53 @@ export default class ColorControll {
    }
    
     getColor(square) {
+
         const data = this.ctx.getImageData(square[0]+2,square[1]+2,1,1).data
         return this.rgb2hex(`rgba(${data[0]},${data[1]},${data[2]},${data[3]}`);
+
     }
 
     pickColor(square) {
+
         const color = this.getColor(square)
         if (this.ctx.fillStyle === color) return
         this.changeColorPallete(color)
+
     }
 
     checkColor(square) {
+
         return this.getColor(square) === this.ctx.fillStyle
+
     }
 
     changeColorPallete(color) {
+
         if (this.currentColor === color) return
         this.previousColor = this.currentColor;
         this.currentColor = color;
         this.ctx.fillStyle = color
         this.previousColorNode.style.background = this.currentColorNode.style.background;
         this.currentColorNode.style.background = color
+
     }
 
     previousColorClickHandler() {
+
         const prevData = this.previousColor;
         const prevString = prevData
         this.changeColorPallete(prevString)
+
     }
 
     start() {
+
         this.colorPalette.addEventListener('click', (e) => {
             if (e.target.className !== '_item') return
 
             const color = e.target.getAttribute('color')
             this.changeColorPallete(color)
         })
+        
     }
 }

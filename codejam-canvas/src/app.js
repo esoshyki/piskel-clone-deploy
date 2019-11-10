@@ -14,11 +14,13 @@ const currentColor = localStorage.getItem("currentColor");
 const previousColor = localStorage.getItem("previousColor");
 
 if (imageData) {
+
     const img = new Image;
     img.src = imageData;
     img.onload = () => {
         App.canvas.getContext('2d').drawImage(img, 0,0)
     }
+    
 }
 
 if (instrument !== 'null' && instrument !== 'pencil') {
@@ -38,8 +40,10 @@ if (currentColor && previousColor) {
 
  
 window.addEventListener('unload', () => {
+
     localStorage.setItem("currentColor", AppArtist.colorContoll.currentColor);
     localStorage.setItem("previousColor", AppArtist.colorContoll.previousColor);
     localStorage.setItem("instrument", AppArtist.instrument);
     localStorage.setItem("imageData", (AppArtist.canvas.toDataURL()))
+
 })

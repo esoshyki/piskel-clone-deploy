@@ -2,12 +2,16 @@
 @import './displays'
 @import './canvas'
 @import './media'
+@import './fonts'
 
+body 
+    background: #f7f6f2
   
 .container 
     max-width: 1350px
     min-width: 800px
     margin: 0 auto
+    +font28
 
 
 
@@ -16,8 +20,9 @@
         width: 100%
         +bgMain
         h1 
-            font-size: 18px
+            +font28
+            font-size: 30px
             float: left
-            margin: 20px 0 0 40px
+            margin: 15px 0 0 30px
 
     @import './main'
