@@ -1,5 +1,6 @@
 export default class PaintBucket {
     constructor(canvas, ctx, colorControll, ratio) {
+
         this.canvas = canvas;
         this.size = this.canvas.offsetWidth;
         this.ctx = ctx;
@@ -11,6 +12,7 @@ export default class PaintBucket {
         this.ratio = ratio;
         this.scale = this.size / this.ratio
         this.startPath = this.startPath.bind(this)
+        
     }
 
     getUpperColor(square) {

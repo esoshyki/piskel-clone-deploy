@@ -17,7 +17,6 @@ export default class Artist {
         this.changeSelect = this.changeSelect.bind(this);
         this.changeInstrument = this.changeInstrument.bind(this)
         this.ratio = 4;
-
     }
 
     changeInstrument(instrument) {
