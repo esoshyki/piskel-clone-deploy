@@ -18,7 +18,6 @@ export default class ColorControll {
         this.previousColorClickHandler = this.previousColorClickHandler.bind(this);
         this.colorPalette = document.querySelector('._rainbow')
 
-
     }
 
     //Function to convert hex format to a rgb color
