@@ -4,8 +4,8 @@ export default class PaintBucket {
         this.size = this.canvas.offsetWidth;
         this.ctx = ctx;
         this.colorControll = colorControll;
-        this.color = null;
-        this.fillColor = null;
+        this.color = '#ffffff';
+        this.fillColor = '#000000';
         this.leftSquaries = [];
         this.rightSquaries = [];
         this.ratio = ratio;
@@ -56,7 +56,9 @@ export default class PaintBucket {
 
     startPath(square) {
         this.color = this.colorControll.getColor(square)
-        this.fillColor = this.colorControll.currentColor
+        this.fillColor = this.colorControll.currentColor 
+        console.log(this.color);
+        console.log(this.fillColor)
         // console.log(`left: ${this.getLeftColor(square)}`);
         // console.log(`right: ${this.getRightColor(square)}`);
         // console.log(`up: ${this.getUpperColor(square)}`);
@@ -107,6 +109,10 @@ export default class PaintBucket {
             travel(leftPoints.pop())
         }
 
+    }
+
+    test(square) {
+        console.log(this.colorControll.getColor(square))
     }
 
 

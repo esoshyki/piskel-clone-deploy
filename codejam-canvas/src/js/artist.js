@@ -52,6 +52,7 @@ export default class Artist {
 
         const square = this.getSquare(e)
         if (this.instrument === 'pencil')  {
+            console.log(this.ctx.fillStyle)
             this.pencilDraw(square);
             this.canvas.addEventListener('mousemove', this.drawPath)
             this.canvas.addEventListener('mouseup', () => this.canvas.removeEventListener('mousemove', this.drawPath))
@@ -63,6 +64,10 @@ export default class Artist {
 
         if (this.instrument === 'fill_bucket') {
             this.paintBucket.startPath(square)
+        }
+
+        if (this.instrument === 'test') {
+            this.paintBucket.test(square)
         }
       }
 
@@ -87,6 +92,9 @@ export default class Artist {
     start() {
         this.body.addEventListener('click', this.handleClick)
         this.canvas.addEventListener('mousedown', this.draw);
+        this.ctx.fillStyle = '#ffffff'
+        this.ctx.fillRect(0,0, 512, 512);
+        this.ctx.fillStyle = '#000000'
         this.colorContoll.previousColorNode.addEventListener('click', this.colorContoll.previousColorClickHandler)
         this.colorContoll.start()
     }

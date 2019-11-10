@@ -46,6 +46,7 @@ export default class ColorControll {
     }
 
     changeColorPallete(color) {
+        if (this.currentColor === color) return
         this.previousColor = this.currentColor;
         this.currentColor = color;
         this.ctx.fillStyle = color
