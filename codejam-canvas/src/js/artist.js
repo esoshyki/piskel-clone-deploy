@@ -10,7 +10,8 @@ export default class Artist {
         this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio);
         this.body = document.querySelector('._artist')
         this.selectedNode = document.querySelector('[name=pencil]');
-        this.handleClick = this.handleClick.bind(this)
+        this.handleClick = this.handleClick.bind(this);
+        this.handlePress = this.handlePress.bind(this);
         this.draw = this.draw.bind(this);
         this.drawPath = this.drawPath.bind(this);
         this.changeSelect = this.changeSelect.bind(this);
@@ -74,9 +75,24 @@ export default class Artist {
         this.changeSelect(e.target, instrument)
 
     }
+
+    handlePress(e) {
+        console.log(e.keyCode)
+        if (e.keyCode === 112) {
+            this.changeInstrument('pencil');
+        }
+
+        if (e.keyCode === 98) {
+            this.changeInstrument('fill_bucket')
+        }
+
+        if (e.keyCode === 99) {
+            this.changeInstrument('color_picker')
+        }
+    }
   
     draw(e) {
-        console.log(this.ctx.fillStyle)
+
         if (!this.instrument) return // ничего не делает если инструмент не выбран
 
         const square = this.getSquare(e)
@@ -119,7 +135,8 @@ export default class Artist {
     }   
 
     start() {
-        this.body.addEventListener('click', this.handleClick)
+        this.body.addEventListener('click', this.handleClick);
+        window.addEventListener('keypress', this.handlePress);
         this.canvas.addEventListener('mousedown', this.draw);
         this.ctx.fillStyle = '#ffffff'
         this.ctx.fillRect(0,0, 512, 512);
