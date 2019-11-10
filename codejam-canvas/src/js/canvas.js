@@ -5,7 +5,7 @@ export default class Canvas {
     constructor() {
         this.handleButton = this.handleButton.bind(this)
         this.canvas = document.querySelector('.canvas_main');
-        this.currentColorNode = document.querySelector('._current_color')
+        this.currentColorNode = document.querySelector('._current_color');
     }
 
     handleButton(e) {
@@ -74,7 +74,8 @@ export default class Canvas {
     }
 
     start() {
+        console.log(this.imageData)
         const menu = document.querySelector('.menu');
-        menu.addEventListener('click', this.handleButton)
+        menu.addEventListener('click', this.handleButton);
     }
 }

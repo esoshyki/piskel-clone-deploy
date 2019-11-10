@@ -7,44 +7,28 @@ export default class Artist {
         this.canvas = Canvas;
         this.ctx = this.canvas.getContext('2d');
         this.colorContoll = new ColorContoll(this.canvas, this.ctx);
-        this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio)
+        this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio);
         this.body = document.querySelector('._artist')
-        this.selectedNode = this.body.querySelector('[name=pencil]');
+        this.selectedNode = document.querySelector('[name=pencil]');
         this.handleClick = this.handleClick.bind(this)
         this.draw = this.draw.bind(this);
         this.drawPath = this.drawPath.bind(this);
+        this.changeSelect = this.changeSelect.bind(this);
+        this.changeInstrument = this.changeInstrument.bind(this)
         this.ratio = 4;
+
     }
 
-    handleClick(e) {
-        if (e.target.classList[0] !=='_artist_item') return // если не попал по кнопке ретурн
+    changeInstrument(instrument) {
+        console.log(instrument)
+        const instr = document.querySelector(`[name=${instrument}]`)
+        console.log(instr)
+        this.changeSelect(instr, instrument)
 
-        const instrument = e.target.getAttribute('name')
+    }
 
-        if (!this.selectedNode) {
-            this.selectedNode = e.target
-        } 
+    changeCursor() {
 
-        else {
-            // Выключение кнопки при нажатии на ее же саму
-            if (this.selectedNode === e.target) {
-                this.selectedNode.classList.remove('selected');
-                this.selectedNode = null
-                this.instrument = null
-                return
-            }
-            // Отключение уже выбранной кнопки
-            else {
-                this.selectedNode.classList.remove('selected');
-                this.selectedNode = e.target;
-            }
-        }
-
-        this.selectedNode.classList.add('selected');
-
-        this.instrument = instrument
-        console.log(this.instrument)
-        let curs 
         if (this.instrument === 'pencil') {
             document.body.style.cursor = "url('./src/assets/cursors/pencil.cur'), pointer"
         }
@@ -54,18 +38,53 @@ export default class Artist {
         else if (this.instrument === 'color_picker') {
             document.body.style.cursor = "url('./src/assets/cursors/color-picker.cur'), pointer"
         }
+
+    }
+
+
+    changeSelect(node, instrument) {
+
+        if (!this.selectedNode) {
+            this.selectedNode = node
+        }
+
+        else {
+            if (this.selectedNode === node) {
+                this.selectedNode.classList.remove('selected');
+                this.selectedNode = null
+                this.instrument = null
+                return 
+            }
+            else {
+                this.selectedNode.classList.remove('selected');
+                this.selectedNode = node;
+            }
+        }
+        this.selectedNode.classList.add('selected');
+        this.instrument = instrument
+        this.changeCursor()
+    }
+
+    handleClick(e) {
+
+        if (e.target.classList[0] !=='_artist_item') return // если не попал по кнопке ретурн
+
+        const instrument = e.target.getAttribute('name')
+
+        this.changeSelect(e.target, instrument)
+
     }
   
     draw(e) {
-
+        console.log(this.ctx.fillStyle)
         if (!this.instrument) return // ничего не делает если инструмент не выбран
 
         const square = this.getSquare(e)
         if (this.instrument === 'pencil')  {
-            console.log(this.ctx.fillStyle)
             this.pencilDraw(square);
             this.canvas.addEventListener('mousemove', this.drawPath)
             this.canvas.addEventListener('mouseup', () => this.canvas.removeEventListener('mousemove', this.drawPath))
+            this.canvas.addEventListener('mouseleave', () => this.canvas.removeEventListener('mousemove', this.drawPath))
         }
         
         if (this.instrument === 'color_picker') {
