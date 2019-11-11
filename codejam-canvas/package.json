@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack --config webpack.config.ts --watch",
     "build": "webpack -p",
-    "lint": "eslint src/js**"
+    "lint": "eslint src/js**",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   "homepage": "https://github.com/esoshyki/codejam-canvas#readme",
   "devDependencies": {
     "css-loader": "^3.2.0",
-    "eslint": "^6.1.0",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -32,6 +33,9 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "chai": "^4.2.0",
+    "glob": "^7.1.6",
+    "mocha": "^6.2.2",
     "save-dev": "0.0.1-security"
   }
 }
