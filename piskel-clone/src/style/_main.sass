@@ -2,17 +2,34 @@
     
 main 
     margin-top: 10px
+    +flex(row, space-between, end)
 
     .menu 
         +flex()
         width: 300px
         margin-bottom: -650px
 
+        
         ._data_menu
             width: 100%
             float: left
             +flex()
-    
+
+            ._data_menu_town
+                margin-top: 10px
+                +flex(row)
+                height: 30px
+
+                label 
+                    margin-right: 5px
+                    font-size: 0.9em
+
+                input
+                    padding: 0
+                    height: 100%
+                    font-size: 0.8em
+                    width: 150px
+
             .menu_button
                 +font28
                 padding-top: 5px

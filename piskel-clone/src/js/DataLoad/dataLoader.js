@@ -8,6 +8,8 @@ export default class DataLoader {
         this.handleButton = this.handleButton.bind(this)
         this.canvas = canvas
         this.currentColorNode = document.querySelector('._current_color');
+        this.API_KEY = '2887c5cdabcfdda6eb369774636e205dc3fbb66527438b259580c3f60db977f9';
+        this.town = document.querySelector('._town').value
 
     }
 
@@ -16,7 +18,7 @@ export default class DataLoader {
         const val = e.target.getAttribute('val');
 
         if (val === 'image') {
-            this.drawImage()
+            this.getRandomImage(this.town)
         }
 
         else {
@@ -95,6 +97,23 @@ export default class DataLoader {
 
         const menu = document.querySelector('.menu');
         menu.addEventListener('click', this.handleButton);
-        
+
     }
+
+    getRandomImage(_town) {
+        const town = _town ? _town : "Minsk"
+        const url = `https://api.unsplash.com/photos/random?query=town,${town}&client_id=${this.API_KEY}`
+
+        fetch(url).then(res => res.json()).then(data => { 
+                try {
+                    this.drawImage(data.urls.small)
+                }
+                catch {
+                    this.drawImage('../src/js/DataLoad/data/testImage.png')
+                }
+         });
+
+    }
+
+
 }
