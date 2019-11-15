@@ -23,7 +23,7 @@ if (imageData) {
     
 }
 
-if (instrument !== 'null' && instrument !== 'pencil') {
+if (instrument !== null && instrument !== 'pencil') {
 
     AppArtist.changeInstrument(instrument)
 }
