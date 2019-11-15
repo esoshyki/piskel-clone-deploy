@@ -1,12 +1,12 @@
-import json4 from '../data/4x4.json'
-import json32 from '../data/32x32.json'
+import json4 from './data/4x4.json'
+import json32 from './data/32x32.json'
 
-export default class Canvas {
+export default class DataLoader {
 
-    constructor() {
+    constructor(canvas) {
 
         this.handleButton = this.handleButton.bind(this)
-        this.canvas = document.querySelector('.canvas_main');
+        this.canvas = canvas
         this.currentColorNode = document.querySelector('._current_color');
 
     }
@@ -25,12 +25,12 @@ export default class Canvas {
 
     }
 
-    drawImage() {
+    drawImage(url) {
 
         this.clearCanvas()
         const ctx = this.canvas.getContext('2d');
         const img = new Image();
-        img.src = './src/data/image.png';
+        img.src = url ? url : '../src/js/DataLoad/data/image.png';
       
         img.onload = () => {
             const dx = (512 - img.height)/2 > 0 ? (512 - img.height)/2 : 0

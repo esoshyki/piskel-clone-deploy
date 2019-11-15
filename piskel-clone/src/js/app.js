@@ -1,13 +1,17 @@
 import ColorContoll from './colorContoll'
 import PaintBucket from './paintBucket';
+import DataLoader from './DataLoad/dataLoader'
 
-export default class Artist {
-    constructor(Canvas) {
+export default class App {
+    constructor() {
         this.instrument = 'pencil';
-        this.canvas = Canvas;
+        this.canvas = document.querySelector('.canvas_main');
         this.ctx = this.canvas.getContext('2d');
+
         this.colorContoll = new ColorContoll(this.canvas, this.ctx);
         this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio);
+        this.dataLoader = new DataLoader(this.canvas)
+
         this.body = document.querySelector('._artist')
         this.selectedNode = document.querySelector('[name=pencil]');
         this.handleClick = this.handleClick.bind(this);
@@ -29,13 +33,13 @@ export default class Artist {
     changeCursor() {
 
         if (this.instrument === 'pencil') {
-            document.body.style.cursor = "url('./src/assets/cursors/pencil.cur'), pointer"
+            document.body.style.cursor = "url('../src/assets/cursors/pencil.cur'), pointer"
         }
         else if (this.instrument === 'fill_bucket') {
-            document.body.style.cursor = "url('./src/assets/cursors/bucket.cur'), pointer"
+            document.body.style.cursor = "url('../src/assets/cursors/bucket.cur'), pointer"
         }
         else if (this.instrument === 'color_picker') {
-            document.body.style.cursor = "url('./src/assets/cursors/color-picker.cur'), pointer"
+            document.body.style.cursor = "url('../src/assets/cursors/color-picker.cur'), pointer"
         }
 
     }
@@ -156,6 +160,7 @@ export default class Artist {
         this.ctx.fillStyle = '#000000'
         this.colorContoll.previousColorNode.addEventListener('click', this.colorContoll.previousColorClickHandler)
         this.colorContoll.start()
+        this.dataLoader.start()
         
     }
 }
