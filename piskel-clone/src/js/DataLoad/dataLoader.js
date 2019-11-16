@@ -3,13 +3,14 @@ import json32 from './data/32x32.json'
 
 export default class DataLoader {
 
-    constructor(canvas) {
+    constructor(canvas, ratio) {
 
         this.handleButton = this.handleButton.bind(this)
         this.canvas = canvas
         this.currentColorNode = document.querySelector('._current_color');
         this.API_KEY = '2887c5cdabcfdda6eb369774636e205dc3fbb66527438b259580c3f60db977f9';
-        this.town = document.querySelector('._town').value
+        this.town = document.querySelector('._town').value;
+        this.ratio = ratio;
 
     }
 
@@ -33,13 +34,35 @@ export default class DataLoader {
         const ctx = this.canvas.getContext('2d');
         const img = new Image();
         img.src = url ? url : '../src/js/DataLoad/data/image.png';
-      
-        img.onload = () => {
-            const dx = (512 - img.height)/2 > 0 ? (512 - img.height)/2 : 0
-            const dy = (512 - img.width)/2 > 0 ? (512 - img.width)/2 : 0
-                ctx.drawImage(img, dx, dy);
-            };
 
+        let dWidth; let dHeight;
+        
+        img.onload = () => {
+
+            const max = 512;
+            
+            if (parseInt(img.width) >= parseInt(img.height)) {
+
+                const k = (img.height/img.width)
+                dWidth = max;
+                dHeight = Math.floor(img.width * k)
+                
+            }
+
+            else {
+
+                const k = (img.width/img.height)
+                dHeight = max;
+                dWidth = Math.floor(img.height * k)
+
+            }
+
+            const dx = (512 - dWidth)/2 > 0 ? (512 - dWidth)/2 : 0
+            const dy = (512 - dHeight)/2 > 0 ? (512 - dHeight)/2 : 0
+
+            ctx.drawImage(img, dx, dy, dWidth, dHeight);
+
+            };
         }
         
     clearCanvas() {
@@ -100,13 +123,16 @@ export default class DataLoader {
 
     }
 
-    getRandomImage(_town) {
+    async getRandomImage(_town) {
         const town = _town ? _town : "Minsk"
         const url = `https://api.unsplash.com/photos/random?query=town,${town}&client_id=${this.API_KEY}`
 
-        fetch(url).then(res => res.json()).then(data => { 
+
+        await fetch(url).then(res => res.json()).then(data => { 
                 try {
-                    this.drawImage(data.urls.small)
+                    const src = data.urls.small;
+                    console.log(src)
+                    this.drawImage(src)
                 }
                 catch {
                     this.drawImage('../src/js/DataLoad/data/testImage.png')

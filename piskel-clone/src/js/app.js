@@ -1,16 +1,19 @@
 import ColorContoll from './colorContoll'
 import PaintBucket from './paintBucket';
-import DataLoader from './DataLoad/dataLoader'
+import DataLoader from './DataLoad/dataLoader';
+import CanvasSize from './canvasSize';
 
 export default class App {
     constructor() {
         this.instrument = 'pencil';
         this.canvas = document.querySelector('.canvas_main');
         this.ctx = this.canvas.getContext('2d');
+        this.ratio = 4;
 
         this.colorContoll = new ColorContoll(this.canvas, this.ctx);
         this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio);
-        this.dataLoader = new DataLoader(this.canvas)
+        this.dataLoader = new DataLoader(this.canvas, this.ratio);
+        this.sizeControl = new CanvasSize(this);
 
         this.body = document.querySelector('._artist')
         this.selectedNode = document.querySelector('[name=pencil]');
@@ -20,7 +23,7 @@ export default class App {
         this.drawPath = this.drawPath.bind(this);
         this.changeSelect = this.changeSelect.bind(this);
         this.changeInstrument = this.changeInstrument.bind(this)
-        this.ratio = 4;
+
     }
 
     changeInstrument(instrument) {
@@ -52,20 +55,25 @@ export default class App {
         }
 
         else {
+
             if (this.selectedNode === node) {
                 this.selectedNode.classList.remove('selected');
                 this.selectedNode = null
                 this.instrument = null
                 return 
             }
+
             else {
                 this.selectedNode.classList.remove('selected');
                 this.selectedNode = node;
             }
+
         }
+
         this.selectedNode.classList.add('selected');
-        this.instrument = instrument
-        this.changeCursor()
+        this.instrument = instrument;
+        this.changeCursor();
+
     }
 
     handleClick(e) {
@@ -159,8 +167,9 @@ export default class App {
         this.ctx.fillRect(0,0, 512, 512);
         this.ctx.fillStyle = '#000000'
         this.colorContoll.previousColorNode.addEventListener('click', this.colorContoll.previousColorClickHandler)
-        this.colorContoll.start()
-        this.dataLoader.start()
+        this.colorContoll.start();
+        this.dataLoader.start();
+        this.sizeControl.start();
         
     }
 }
