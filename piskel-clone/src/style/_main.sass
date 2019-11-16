@@ -9,16 +9,20 @@ main
         +flex()
         width: 300px
         margin-bottom: -650px
-
+        @import './_pensize'
         ._change-canvas-size 
             +flex
             width: 100%
 
             ._item
                 +button
-            
+                border: none
+
             .selected
-                border: 2px solid red
+                border: 2px solid red !important
+            
+        .selected
+            border: 2px solid red
 
         ._data_menu
             width: 100%

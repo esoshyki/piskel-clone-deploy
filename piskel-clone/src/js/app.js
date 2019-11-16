@@ -8,12 +8,13 @@ export default class App {
         this.instrument = 'pencil';
         this.canvas = document.querySelector('.canvas_main');
         this.ctx = this.canvas.getContext('2d');
+        this.ctx.imageSmoothingEnabled = false;
         this.ratio = 4;
 
         this.colorContoll = new ColorContoll(this.canvas, this.ctx);
         this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio);
-        this.dataLoader = new DataLoader(this.canvas, this.ratio);
         this.sizeControl = new CanvasSize(this);
+        this.dataLoader = new DataLoader(this);
 
         this.body = document.querySelector('._artist')
         this.selectedNode = document.querySelector('[name=pencil]');
@@ -151,7 +152,7 @@ export default class App {
 
         const x = e.pageX - this.canvas.offsetLeft;
         const y = e.pageY - this.canvas.offsetTop;
-        const size = 512 / this.ratio;
+        const size = this.canvas.width / this.ratio;
         const startX = size * Math.floor(x/size);
         const startY = size * Math.floor(y/size);
         return [startX, startY, size]

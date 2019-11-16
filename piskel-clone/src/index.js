@@ -9,6 +9,8 @@ const imageData = localStorage.getItem("imageData");
 const instrument = localStorage.getItem("instrument");
 const currentColor = localStorage.getItem("currentColor");
 const previousColor = localStorage.getItem("previousColor");
+const penSize = localStorage.getItem("penSize");
+const size = localStorage.getItem("size")
 
 if (imageData) {
 
@@ -21,10 +23,18 @@ if (imageData) {
 }
 
 if (instrument !== null && instrument !== 'pencil') {
-
     app.changeInstrument(instrument)
 }
 
+if (penSize) {
+    app.ratio = penSize
+    app.sizeControl.changeByRatio(penSize)
+} 
+
+if (['128','256','512'].includes(size)) {
+    app.sizeControl.size = size;
+    app.sizeControl.changeBySize(size)
+}
 
 if (currentColor && previousColor) {
 
@@ -42,5 +52,7 @@ window.addEventListener('unload', () => {
     localStorage.setItem("previousColor", app.colorContoll.previousColor);
     localStorage.setItem("instrument", app.instrument);
     localStorage.setItem("imageData", (app.canvas.toDataURL()))
+    localStorage.setItem("penSize",  app.ratio)
+    localStorage.setItem("size", app.sizeControl.size)
 
 })

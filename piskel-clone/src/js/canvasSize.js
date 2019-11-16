@@ -1,30 +1,60 @@
 export default class CanvasSize {
     constructor(obj) {
 
-        this.canvas = obj.canvas;
         this.app = obj
-        this.selectedNode = document.querySelector('._change-canvas-size ._item:first-of-type');
-        this.selectedNode.classList.add('selected')
-        this.handle = this.handle.bind(this);
+        this.selectedPenSize = document.querySelector('._pen-size ._item:first-of-type');
+        this.selectedPenSize.classList.add('selected')
+        this.selectedVSize = document.querySelector('._change-canvas-size ._item:first-of-type');
+        this.selectedVSize.classList.add('selected')
+        this.size = 128;
 
     }
 
-    handle(e) {
+    changeByRatio(ratio) {
 
-        const target = e.target; const value = target.getAttribute('val');
+        // Функция устанавливает выбранную кнопку размера кисти
+        const node = document.querySelector(`._pen-size [penSize='${ratio}']`)
+        if (this.selectedPenSize == node) return
+
+        this.selectedPenSize.classList.remove('selected')
+        this.selectedPenSize = node;
+        this.selectedPenSize.classList.add('selected')
+
+    }
+
+    changeBySize(vSize) {
+
+        this.app.canvas.width = this.app.canvas.height = vSize
+        // Функция устанавливает выбранную кнопку размера кисти
+        const node = document.querySelector(`._change-canvas-size [vSize="${vSize}"]`)
+        if (this.selectedVSize == node) return
+        
+        this.selectedVSize.classList.remove('selected')
+        this.selectedVSize = node;
+        this.selectedVSize.classList.add('selected')
+    }
+
+    handlePenSize(e) {
+
+        const target = e.target; const value = target.getAttribute('penSize');
         if (!value) return
 
-        this.app.ratio = parseInt(value);
+        this.app.ratio = value;
+        this.changeByRatio(this.app.ratio)
+    }
 
-        this.selectedNode.classList.remove('selected');
-        this.selectedNode = document.querySelector('._change-canvas-size').querySelector(`div[val="${value}"]`);
-        this.selectedNode.classList.add('selected');
+    handleCanvasSize(e) {
+        const target = e.target; const value = target.getAttribute('vSize');
+        if (!value) return
+        this.size = value
+        this.changeBySize(this.size)
 
     }
 
     start() {
 
-        document.querySelector('._change-canvas-size').addEventListener('click', this.handle)
+        document.querySelector('._pen-size').addEventListener('click', this.handlePenSize.bind(this));
+        document.querySelector('._change-canvas-size').addEventListener('click', this.handleCanvasSize.bind(this))
         
     }
 }
