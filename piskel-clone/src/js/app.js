@@ -124,8 +124,8 @@ export default class App {
         }
 
         if (this.instrument === 'fill_bucket') {
-
-            this.paintBucket.startPath(square)
+            if (this.colorContoll.getColor(square) === this.colorContoll.currentColor) return
+            this.paintBucket.startPath([square[0],square[1],this.canvas.width/16]
 
         }
 
@@ -150,14 +150,12 @@ export default class App {
 
     getSquare(e) {
 
-        const x = e.pageX - this.canvas.offsetLeft;
-        const y = e.pageY - this.canvas.offsetTop;
-        const size = this.canvas.width / this.ratio;
-        const resize = this.canvas.width / 512;
-
-        const startX = resize * size * Math.floor(x/size);
-        const startY = resize * size * Math.floor(y/size);
-        console.log(startX, startY, size)
+        const resize = 512 / this.canvas.width;
+        const x = Math.floor((e.pageX - this.canvas.offsetLeft)/resize);
+        const y = Math.floor((e.pageY - this.canvas.offsetTop)/resize);
+        const size = (this.canvas.width / this.ratio) 
+        const startX = size * Math.floor(x/size);
+        const startY = size * Math.floor(y/size);
         return [startX, startY, size]
 
     }   

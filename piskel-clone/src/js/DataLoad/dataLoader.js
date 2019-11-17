@@ -11,15 +11,13 @@ export default class DataLoader {
         this.currentColorNode = document.querySelector('._current_color');
         this.API_KEY = '2887c5cdabcfdda6eb369774636e205dc3fbb66527438b259580c3f60db977f9';
         this.town = null;
-        this.vSize = app.sizeControl.vSize
 
     }
 
     handleButton(e) {
 
         const val = e.target.getAttribute('val');
-        this.vSize = this.app.sizeControl.vSize
-        console.log(this.vSize)
+        console.log(this.app.sizeControl.size)
         if (val === 'image') {
             this.town = document.querySelector('._town').value;
             this.getRandomImage(this.town)
@@ -37,21 +35,22 @@ export default class DataLoader {
         const ctx = this.canvas.getContext('2d');
         const img = new Image();
         img.src = url ? url : '../src/js/DataLoad/data/image.png';
-        const resize = this.vSize / this.canvas.width;
-        console.log(resize)
+        const resize = this.app.sizeControl.size / this.canvas.width;
+        console.log(`resize = ${resize}`)
         let dWidth; let dHeight;
         
         img.onload = () => {
 
-            const max = 512;
+            const max = this.app.canvas.width;
+            console.log(`max = ${max}`)
             console.log(img.width, img.height)
-            img.width *= resize; img.height *= resize
+            // img.width *= resize; img.height *= resize
             console.log(img.width, img.height)
             if (parseInt(img.width) >= parseInt(img.height)) {
 
                 const k = (img.height/img.width)
                 dWidth = max;
-                dHeight = Math.floor(img.width * k)
+                dHeight = Math.floor(dWidth * k)
                 
             }
 
@@ -59,12 +58,14 @@ export default class DataLoader {
 
                 const k = (img.width/img.height)
                 dHeight = max;
-                dWidth = Math.floor(img.height * k)
+                dWidth = Math.floor(dHeight * k)
 
             }
 
-            const dx = (512 - dWidth)/2 > 0 ? (512 - dWidth)/2 : 0
-            const dy = (512 - dHeight)/2 > 0 ? (512 - dHeight)/2 : 0
+            console.log(`dWidth = ${dWidth} dHeight = ${dHeight}`)
+
+            const dx = (max - dWidth)/2 > 0 ? (max - dWidth)/2 : 0
+            const dy = (max - dHeight)/2 > 0 ? (max - dHeight)/2 : 0
 
             ctx.drawImage(img, dx, dy, dWidth, dHeight);
 
@@ -138,6 +139,7 @@ export default class DataLoader {
                 try {
 
                     const src = data.urls.small;
+                    console.log(src)
                     this.drawImage(src)
 
                 }

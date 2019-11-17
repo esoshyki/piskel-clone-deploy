@@ -2,14 +2,14 @@ export default class PaintBucket {
     constructor(canvas, ctx, colorControll, ratio) {
 
         this.canvas = canvas;
-        this.size = this.canvas.offsetWidth;
+        this.size = this.canvas.width;
         this.ctx = ctx;
         this.colorControll = colorControll;
         this.color = '#ffffff';
         this.fillColor = '#000000';
         this.leftSquaries = [];
         this.rightSquaries = [];
-        this.ratio = ratio;
+        this.ratio = 16;
         this.scale = this.size / this.ratio
         this.startPath = this.startPath.bind(this)
         
@@ -53,7 +53,8 @@ export default class PaintBucket {
 
 
     startPath(square) {
-
+        console.log(square)
+        this.size = this.canvas.width;
         this.color = this.colorControll.getColor(square)
         this.fillColor = this.colorControll.currentColor 
         let x, y, z

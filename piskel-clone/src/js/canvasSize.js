@@ -25,8 +25,13 @@ export default class CanvasSize {
     changeBySize(vSize) {
 
         this.app.canvas.width = this.app.canvas.height = vSize
+        this.app.ctx.fillStyle = '#ffffff';
+        this.app.ctx.fillRect(0,0,vSize, vSize)
+        this.app.ctx.fillStyle = this.app.colorContoll.currentColor;
         // Функция устанавливает выбранную кнопку размера кисти
         const node = document.querySelector(`._change-canvas-size [vSize="${vSize}"]`)
+        console.log(this.selectedVSize);
+        console.log(node)
         if (this.selectedVSize == node) return
         
         this.selectedVSize.classList.remove('selected')
