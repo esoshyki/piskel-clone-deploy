@@ -53,7 +53,7 @@ export default class PaintBucket {
 
 
     startPath(square) {
-        console.log(square)
+
         this.size = this.canvas.width;
         this.color = this.colorControll.getColor(square)
         this.fillColor = this.colorControll.currentColor 

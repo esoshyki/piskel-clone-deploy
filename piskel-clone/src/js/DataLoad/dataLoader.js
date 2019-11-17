@@ -11,22 +11,50 @@ export default class DataLoader {
         this.currentColorNode = document.querySelector('._current_color');
         this.API_KEY = '2887c5cdabcfdda6eb369774636e205dc3fbb66527438b259580c3f60db977f9';
         this.town = null;
+        this.imageData = null;
 
     }
 
     handleButton(e) {
 
         const val = e.target.getAttribute('val');
-        console.log(this.app.sizeControl.size)
         if (val === 'image') {
             this.town = document.querySelector('._town').value;
             this.getRandomImage(this.town)
         }
 
-        else {
-            this.drawCanvasFromJSON(val)
+        else if (e.target.className === '_grayscale') {
+            if (this.imageData === null) {
+                alert('Please, load the image before grayscaling');
+                return
+            }
+            this.changeImageToGrayscale()
         }
 
+    }
+
+    changeImageToGrayscale() {
+        const data = this.grayscaleImageData(this.imageData);
+        this.canvas.getContext('2d').putImageData(data, 0, 0)
+        console.log(data)
+    }
+
+    grayscaleImageData(imageData) {
+        const data = imageData.data
+        for (var i = 0; i < data.length; i += 4) {
+            var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2]
+            data[i] = brightness
+            data[i + 1] = brightness
+            data[i + 2] = brightness
+        }
+        return imageData
+    }
+
+    getImageData() {
+
+        const canvas = this.canvas;
+        const context = canvas.getContext('2d')
+        return context.getImageData(0, 0, this.canvas.width, this.canvas.height)
     }
 
     drawImage(url) {
@@ -35,17 +63,13 @@ export default class DataLoader {
         const ctx = this.canvas.getContext('2d');
         const img = new Image();
         img.src = url ? url : '../src/js/DataLoad/data/image.png';
-        const resize = this.app.sizeControl.size / this.canvas.width;
-        console.log(`resize = ${resize}`)
+        img.setAttribute('crossorigin', 'anonymous')
         let dWidth; let dHeight;
         
         img.onload = () => {
 
             const max = this.app.canvas.width;
-            console.log(`max = ${max}`)
-            console.log(img.width, img.height)
-            // img.width *= resize; img.height *= resize
-            console.log(img.width, img.height)
+
             if (parseInt(img.width) >= parseInt(img.height)) {
 
                 const k = (img.height/img.width)
@@ -62,13 +86,12 @@ export default class DataLoader {
 
             }
 
-            console.log(`dWidth = ${dWidth} dHeight = ${dHeight}`)
-
             const dx = (max - dWidth)/2 > 0 ? (max - dWidth)/2 : 0
             const dy = (max - dHeight)/2 > 0 ? (max - dHeight)/2 : 0
 
             ctx.drawImage(img, dx, dy, dWidth, dHeight);
-
+            this.imageData = this.getImageData();
+            // this.imageURL = document.querySelector('.canvas_main').toDataURL('image/png')
             };
         }
         
@@ -125,7 +148,7 @@ export default class DataLoader {
 
     start() {
 
-        const menu = document.querySelector('.menu');
+        const menu = document.querySelector('._data_menu');
         menu.addEventListener('click', this.handleButton);
 
     }
@@ -133,13 +156,14 @@ export default class DataLoader {
     async getRandomImage(_town) {
 
         const town = _town ? _town.split(' ').join('') : "Minsk"
+
         const url = `https://api.unsplash.com/photos/random?query=town,${town}&client_id=${this.API_KEY}`
 
         await fetch(url).then(res => res.json()).then(data => { 
                 try {
 
                     const src = data.urls.small;
-                    console.log(src)
+
                     this.drawImage(src)
 
                 }

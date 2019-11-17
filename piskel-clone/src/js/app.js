@@ -125,7 +125,7 @@ export default class App {
 
         if (this.instrument === 'fill_bucket') {
             if (this.colorContoll.getColor(square) === this.colorContoll.currentColor) return
-            this.paintBucket.startPath([square[0],square[1],this.canvas.width/16]
+            this.paintBucket.startPath([square[0],square[1],this.canvas.width/16])
 
         }
 
