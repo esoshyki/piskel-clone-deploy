@@ -153,8 +153,11 @@ export default class App {
         const x = e.pageX - this.canvas.offsetLeft;
         const y = e.pageY - this.canvas.offsetTop;
         const size = this.canvas.width / this.ratio;
-        const startX = size * Math.floor(x/size);
-        const startY = size * Math.floor(y/size);
+        const resize = this.canvas.width / 512;
+
+        const startX = resize * size * Math.floor(x/size);
+        const startY = resize * size * Math.floor(y/size);
+        console.log(startX, startY, size)
         return [startX, startY, size]
 
     }   
