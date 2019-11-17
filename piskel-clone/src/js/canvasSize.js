@@ -23,12 +23,16 @@ export default class CanvasSize {
     }
 
     changeBySize(vSize) {
-
+        const image = new Image()
+        image.src = document.querySelector('.canvas_main').toDataURL('image/png');
         this.app.canvas.width = this.app.canvas.height = vSize
-        this.app.ctx.fillStyle = '#ffffff';
-        this.app.ctx.fillRect(0,0,vSize, vSize);
-        this.app.dataLoader.imageData = null
-        this.app.ctx.fillStyle = this.app.colorContoll.currentColor;
+        image.width = image.height = vSize;
+        image.setAttribute('crossorigin', 'anonymous');
+        console.log(image)
+        image.onload = () => {
+            this.app.ctx.drawImage(image, 0, 0, this.app.canvas.width, this.app.canvas.width)
+        }
+
         // Функция устанавливает выбранную кнопку размера кисти
         const node = document.querySelector(`._change-canvas-size [vSize="${vSize}"]`)
         if (this.selectedVSize == node) return
