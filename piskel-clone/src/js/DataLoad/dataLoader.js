@@ -31,6 +31,10 @@ export default class DataLoader {
             this.changeImageToGrayscale()
         }
 
+        else if (e.target.className === '_clearcanvas') {
+            this.clearCanvas()
+        }
+
     }
 
     changeImageToGrayscale() {
@@ -97,7 +101,7 @@ export default class DataLoader {
         
     clearCanvas() {
 
-        this.canvas.getContext('2d').clearRect(0,0,512,512)
+        this.canvas.getContext('2d').clearRect(0,0,this.app.canvas.width,this.app.canvas.width)
 
     }
 
