@@ -30,6 +30,7 @@ export default class CanvasSize {
         image.setAttribute('crossorigin', 'anonymous');
         console.log(image)
         image.onload = () => {
+            this.app.ctx.imageSmoothingEnabled = false;
             this.app.ctx.drawImage(image, 0, 0, this.app.canvas.width, this.app.canvas.width)
         }
 

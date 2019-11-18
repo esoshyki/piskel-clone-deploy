@@ -141,15 +141,6 @@ export default class DataLoader {
 
     }
 
-    drawCanvasFromJSON(size) {
-
-        if (!size) return
-        if (size === '4') this.drawHex(size, json4);
-        if (size === '32') this.drawRGBA(size, json32) ;
-        this.canvas.getContext('2d').fillStyle = this.currentColorNode.style.background
-
-    }
-
     start() {
 
         const menu = document.querySelector('._data_menu');
