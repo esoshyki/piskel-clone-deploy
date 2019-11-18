@@ -1,5 +1,5 @@
 export default class PaintBucket {
-    constructor(canvas, ctx, colorControll, ratio) {
+    constructor(canvas, ctx, colorControll) {
 
         this.canvas = canvas;
         this.size = this.canvas.width;

@@ -141,6 +141,15 @@ export default class DataLoader {
 
     }
 
+    drawCanvasFromJSON(size) {
+
+        if (!size) return
+        if (size === '4') this.drawHex(size, json4);
+        if (size === '32') this.drawRGBA(size, json32) ;
+        this.canvas.getContext('2d').fillStyle = this.currentColorNode.style.background
+
+    }
+
     start() {
 
         const menu = document.querySelector('._data_menu');
@@ -152,17 +161,16 @@ export default class DataLoader {
 
         const town = _town ? _town.split(' ').join('') : "Minsk"
 
-        const url = `https://api.unsplash.com/photos/random?query=town,${town}&client_id=${this.API_KEY}`
-
+        const url = `https://api.unsplash.com/photos/random?query=town,${town}&client_id=${this.API_KEY}` ;
         await fetch(url).then(res => res.json()).then(data => { 
                 try {
 
                     const src = data.urls.small;
-
                     this.drawImage(src)
 
                 }
-                catch {
+
+                catch(err) {
 
                     this.drawImage('../src/js/DataLoad/data/testImage.png')
                     

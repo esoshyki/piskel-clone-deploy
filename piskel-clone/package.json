@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack --config webpack.config.ts --watch",
     "build": "webpack -p",
-    "lint": "eslint src/js**",
+    "lint": "eslint src/js/*.js",
     "test": "mocha"
   },
   "repository": {

@@ -85,7 +85,7 @@ export default class App {
 
         this.canvas.addEventListener('mousedown', this.draw);
         this.ctx.fillStyle = '#ffffff'
-        this.ctx.fillRect(0,0, 512, 512);
+        this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
         this.ctx.fillStyle = '#000000'
         this.colorContoll.previousColorNode.addEventListener('click', this.colorContoll.previousColorClickHandler)
         this.colorContoll.start();
