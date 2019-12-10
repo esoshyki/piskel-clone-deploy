@@ -13,7 +13,7 @@ export default class CanvasSize {
     changeByRatio(ratio) {
 
         // Функция устанавливает выбранную кнопку размера кисти
-        const node = document.querySelector(`._pen-size [penSize='${ratio}']`)
+        const node = document.querySelector(`._pen-size [data-pensize='${ratio}']`)
         if (this.selectedPenSize == node) return
 
         this.selectedPenSize.classList.remove('selected')
@@ -35,7 +35,7 @@ export default class CanvasSize {
         }
 
         // Функция устанавливает выбранную кнопку размера кисти
-        const node = document.querySelector(`._change-canvas-size [vSize="${vSize}"]`)
+        const node = document.querySelector(`._change-canvas-size [data-vsize="${vSize}"]`)
         if (this.selectedVSize == node) return
         
         this.selectedVSize.classList.remove('selected')
@@ -45,7 +45,7 @@ export default class CanvasSize {
 
     handlePenSize(e) {
 
-        const target = e.target; const value = target.getAttribute('penSize');
+        const target = e.target; const value = target.dataset.pensize;
         if (!value) return
 
         this.app.ratio = value;
@@ -53,7 +53,7 @@ export default class CanvasSize {
     }
 
     handleCanvasSize(e) {
-        const target = e.target; const value = target.getAttribute('vSize');
+        const target = e.target; const value = target.dataset.vsize;
         if (!value) return
         this.size = value
         this.changeBySize(this.size)

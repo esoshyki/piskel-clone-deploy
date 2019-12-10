@@ -45,7 +45,7 @@ export default class App {
         }
 
         if (this.instrumentControl.instrument === 'fill_bucket') {
-            if (this.colorContoll.getColor(square) === this.colorContoll.currentColor) return
+            if (this.colorContoll.getColor(square) === this.colorContoll.currentColor) return null;
             this.paintBucket.startPath([square[0],square[1],this.canvas.width/16])
 
         }
@@ -82,7 +82,7 @@ export default class App {
     }   
 
     start() {
-
+        console.log(this)
         this.canvas.addEventListener('mousedown', this.draw);
         this.ctx.fillStyle = '#ffffff'
         this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);

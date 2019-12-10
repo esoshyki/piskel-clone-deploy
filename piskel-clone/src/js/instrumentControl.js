@@ -3,8 +3,8 @@ import CursorControl from './cursorControl';
 export default class InstrumentConrtol {
 
     constructor() {
-        this.instrument = localStorage.getItem("instrument") ? localStorage.getItem("instrument") : 'pencil';
-        this.selectedNode = document.querySelector('[name=pencil]');
+        this.instrument = localStorage.getItem("instrument") || 'pencil';
+        this.selectedNode = document.querySelector('[data-instrument=pencil]');
         this.changeSelect = this.changeSelect.bind(this);
         this.changeInstrument = this.changeInstrument.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -16,7 +16,7 @@ export default class InstrumentConrtol {
 
     changeInstrument(instrument) {
 
-        const instr = document.querySelector(`[name=${instrument}]`)
+        const instr = document.querySelector(`[data-instrument=${instrument}]`)
         this.changeSelect(instr, instrument)
 
     }
@@ -53,7 +53,7 @@ export default class InstrumentConrtol {
 
         if (e.target.classList[0] !=='_artist_item') return // если не попал по кнопке ретурн
 
-        const instrument = e.target.getAttribute('name')
+        const instrument = e.target.dataset.instrument;
 
         this.changeSelect(e.target, instrument)
 

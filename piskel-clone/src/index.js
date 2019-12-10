@@ -47,6 +47,7 @@ window.addEventListener('unload', () => {
     localStorage.setItem("previousColor", app.colorContoll.previousColor);
     localStorage.setItem("imageData", (app.canvas.toDataURL()))
     localStorage.setItem("penSize",  app.ratio)
-    localStorage.setItem("size", app.sizeControl.size)
+    localStorage.setItem("size", app.sizeControl.size);
+    localStorage.setItem("instrument", app.instrumentControl.instrument);
 
 })
