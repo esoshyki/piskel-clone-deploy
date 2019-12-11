@@ -1,4 +1,5 @@
 import Pencil from "./instruments/Pencil";
+import Bucket from "./instruments/Bucket";
 
 export default class Canvas {
     constructor(App) {
@@ -6,7 +7,8 @@ export default class Canvas {
         this.canvas = document.createElement('canvas');
         this.ctx;
 
-        this.pencil = new Pencil(this)
+        this.pencil = new Pencil(this);
+        this.bucket = new Bucket(this);
     }
 
     update_canvas_size() {
@@ -33,6 +35,10 @@ export default class Canvas {
             this.pencil.draw(square)
         }
 
+        if (this.app.instrument === 'fill_bucket') {
+            this.bucket.draw(square);
+        }
+
     }
 
     start() {
@@ -42,6 +48,15 @@ export default class Canvas {
         document.querySelector('main').appendChild(this.canvas);
         this.ctx = this.canvas.getContext('2d');
         this.ctx.imageSmoothingEnabled = false;
+        if (this.app.image_data) {
+            this.ctx.putImageData(this.app.image_data, 0, 0)
+        }
+        else {
+            const color = this.app.current_color;
+            this.ctx.fillStyle = '#ffffff';
+            this.ctx.fillRect(0, 0, this.app.canvas_size, this.app.canvas_size);
+            this.ctx.fillStyle = color;
+        }
         this.canvas.addEventListener('mousedown', this.draw.bind(this))
     }
 }

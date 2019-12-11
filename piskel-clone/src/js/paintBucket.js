@@ -105,10 +105,4 @@ export default class PaintBucket {
         }
 
     }
-
-    test(square) {
-        console.log(this.colorControll.getColor(square))
-    }
-
-
 }

@@ -26,7 +26,7 @@ export default class Color {
 
     handle(e) {
         const target = e.target;
-        if (target.className = '_item') {
+        if (target.className === '_item') {
             const color = target.dataset.color;
             this.changeColor(color);
         }

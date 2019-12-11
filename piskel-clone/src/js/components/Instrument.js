@@ -8,6 +8,19 @@ export default class Instrument {
         this.selected = null;
     };
 
+    changeCursor() {
+        const instrument = this.app.instrument;
+        if (instrument === 'pencil') {
+            document.body.style.cursor = "url('../src/assets/cursors/pencil.cur'), pointer"
+        }
+        else if (instrument === 'fill_bucket') {
+            document.body.style.cursor = "url('../src/assets/cursors/bucket.cur'), pointer"
+        }
+        else if (instrument === 'color_picker') {
+            document.body.style.cursor = "url('../src/assets/cursors/color-picker.cur'), pointer"
+        }
+    }
+
     handler(e) {
         const target = e.target;
         if (target.dataset.instrument !== this.app.instrument) {
@@ -15,6 +28,7 @@ export default class Instrument {
             target.classList.add('selected');
             this.selected = target;
             this.app.instrument = target.dataset.instrument;
+            this.changeCursor()
         }
     }
 
@@ -30,6 +44,7 @@ export default class Instrument {
             el.dataset.instrument = val;
             this.content.appendChild(el);
         })
+        this.changeCursor();
         document.querySelector('.menu').appendChild(this.content);
 
         this.content.addEventListener('click', this.handler.bind(this));
