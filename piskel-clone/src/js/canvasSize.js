@@ -2,7 +2,7 @@ export default class CanvasSize {
     constructor(obj) {
 
         this.app = obj
-        this.selectedPenSize = document.querySelector('._pen-size ._item:first-of-type');
+        // this.selectedPenSize = document.querySelector('._pen-size ._item:first-of-type');
         this.selectedPenSize.classList.add('selected')
         this.selectedVSize = document.querySelector('._change-canvas-size ._item:first-of-type');
         this.selectedVSize.classList.add('selected')
@@ -62,7 +62,7 @@ export default class CanvasSize {
 
     start() {
 
-        document.querySelector('._pen-size').addEventListener('click', this.handlePenSize.bind(this));
+        // document.querySelector('._pen-size').addEventListener('click', this.handlePenSize.bind(this));
         document.querySelector('._change-canvas-size').addEventListener('click', this.handleCanvasSize.bind(this))
         
     }

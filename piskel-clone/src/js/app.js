@@ -3,6 +3,7 @@ import PaintBucket from './paintBucket';
 import DataLoader from './dataLoader';
 import CanvasSize from './canvasSize';
 import InstrumentConrtol from './instrumentControl';
+import Pensize from '../components/Pensize';
 
 export default class App {
     constructor() {
@@ -11,12 +12,14 @@ export default class App {
         this.ctx = this.canvas.getContext('2d');
         this.ctx.imageSmoothingEnabled = false;
         this.ratio = 4;
+        this.pensize = 4;
 
-        this.colorContoll = new ColorContoll(this.canvas, this.ctx);
-        this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio);
-        this.sizeControl = new CanvasSize(this);
-        this.dataLoader = new DataLoader(this);
-        this.instrumentControl = new InstrumentConrtol;
+        // this.colorContoll = new ColorContoll(this.canvas, this.ctx);
+        // this.paintBucket = new PaintBucket(this.canvas, this.ctx, this.colorContoll, this.ratio);
+        // // this.sizeControl = new CanvasSize(this);
+        // this.dataLoader = new DataLoader(this);
+        // this.instrumentControl = new InstrumentConrtol;
+        this.pensize_controll = new Pensize(this);
 
         this.draw = this.draw.bind(this);
         this.drawPath = this.drawPath.bind(this);
@@ -82,16 +85,16 @@ export default class App {
     }   
 
     start() {
-        console.log(this)
-        this.canvas.addEventListener('mousedown', this.draw);
-        this.ctx.fillStyle = '#ffffff'
-        this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
-        this.ctx.fillStyle = '#000000'
-        this.colorContoll.previousColorNode.addEventListener('click', this.colorContoll.previousColorClickHandler)
-        this.colorContoll.start();
-        this.dataLoader.start();
-        this.sizeControl.start();
-        this.instrumentControl.start();
+        // this.canvas.addEventListener('mousedown', this.draw);
+        // this.ctx.fillStyle = '#ffffff'
+        // this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
+        // this.ctx.fillStyle = '#000000'
+        // this.colorContoll.previousColorNode.addEventListener('click', this.colorContoll.previousColorClickHandler)
+        // this.colorContoll.start();
+        // this.dataLoader.start();
+        // // this.sizeControl.start();
+        // this.instrumentControl.start();
+        this.pensize_controll.start();
         
     }
 }
