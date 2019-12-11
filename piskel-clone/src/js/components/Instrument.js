@@ -10,7 +10,6 @@ export default class Instrument {
 
     handler(e) {
         const target = e.target;
-        console.log(e.target.dataset.instrument)
         if (target.dataset.instrument !== this.app.instrument) {
             this.selected.classList.remove('selected');
             target.classList.add('selected');

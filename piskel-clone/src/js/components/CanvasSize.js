@@ -9,6 +9,7 @@ export default class CanvasSize {
         console.log(e.target)
         if (e.target.classList[0] === '_item') {
             this.app.canvas_size = e.target.dataset.canvas_size;
+            this.app.canvas_center.update_canvas_size()
             if (!e.target.classList.contains('selected')) {
                 this.selected.classList.remove('selected');
                 this.selected = e.target;
