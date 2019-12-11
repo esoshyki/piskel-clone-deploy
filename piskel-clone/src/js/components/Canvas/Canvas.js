@@ -1,5 +1,6 @@
 import Pencil from "./instruments/Pencil";
 import Bucket from "./instruments/Bucket";
+import ColorPicker from "./instruments/ColorPicker";
 
 export default class Canvas {
     constructor(App) {
@@ -9,6 +10,7 @@ export default class Canvas {
 
         this.pencil = new Pencil(this);
         this.bucket = new Bucket(this);
+        this.color_picker = new ColorPicker(this);
     }
 
     update_canvas_size() {
@@ -39,6 +41,9 @@ export default class Canvas {
             this.bucket.draw(square);
         }
 
+        if (this.app.instrument === 'color_picker') {
+            this.color_picker.pick_color(square)
+        }
     }
 
     start() {
