@@ -15,7 +15,6 @@ export default class Pencil {
         const drawPath = (e, square) => {
             const new_square = this.app.getSquare(e);
             if (new_square !== square) {
-                console.log('draw')
                 drawSquare(new_square)
             }
         }

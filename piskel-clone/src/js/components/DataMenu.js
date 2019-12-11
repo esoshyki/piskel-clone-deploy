@@ -1,9 +1,12 @@
+import DataLoader from "./DataLoader";
+
 export default class DataMenu {
     constructor(App) {
         this.app = App;
         this.input = document.createElement('input');
         this.grayscale = document.createElement('div');
         this.clear_canvas = document.createElement('div');
+        this.data_loader = new DataLoader(this);
     }
 
     start() {
@@ -34,5 +37,9 @@ export default class DataMenu {
         content.appendChild(this.clear_canvas);
         fragment.appendChild(content);
         document.querySelector('main').appendChild(fragment);
+        this.data_loader.start();
+
+        this.grayscale.addEventListener('click', this.app.canvas_center.grayscale);
+        this.clear_canvas.addEventListener('click', () => localStorage.clear())
     }
 }

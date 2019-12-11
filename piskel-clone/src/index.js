@@ -1,53 +1,28 @@
 import './style/style.sass'
 import App from './js/app'
 
-const app = new App
+
+const data = {
+    pensize : localStorage.getItem("pensize"),
+    canvas_size : localStorage.getItem("canvas_size"),
+    current_color : localStorage.getItem("current_color"),
+    previous_color : localStorage.getItem("previous_color"),
+    instrument : localStorage.getItem("instrument"),
+    image_data : localStorage.getItem("image_data"),
+}
+
+const app = new App(data)
 
 app.start()
-
-// const imageData = localStorage.getItem("imageData");
-// const currentColor = localStorage.getItem("currentColor");
-// const previousColor = localStorage.getItem("previousColor");
-// const penSize = localStorage.getItem("penSize");
-// const size = localStorage.getItem("size")
-
-// if (imageData) {
-
-//     const img = new Image;
-//     img.src = imageData;
-//     img.onload = () => {
-//         app.canvas.getContext('2d').drawImage(img, 0,0)
-//     }
-    
-// }
-
-// if (penSize) {
-//     app.ratio = penSize
-//     app.sizeControl.changeByRatio(penSize)
-// } 
-
-// if (['128','256','512'].includes(size)) {
-//     app.sizeControl.size = size;
-//     app.sizeControl.changeBySize(size)
-// }
-
-// if (currentColor && previousColor) {
-
-//     app.colorContoll.changeColorPallete(previousColor);
-//     app.colorContoll.changeColorPallete(currentColor);
-//     app.ctx.fillStyle = currentColor;
-//     app.colorContoll.ctx.fillStyle = currentColor
-
-// }
 
  
 window.addEventListener('unload', () => {
 
-    localStorage.setItem("currentColor", app.colorContoll.currentColor);
-    localStorage.setItem("previousColor", app.colorContoll.previousColor);
-    localStorage.setItem("imageData", (app.canvas.toDataURL()))
-    localStorage.setItem("penSize",  app.ratio)
-    localStorage.setItem("size", app.sizeControl.size);
-    localStorage.setItem("instrument", app.instrumentControl.instrument);
+    localStorage.setItem("pensize", app.pensize);
+    localStorage.setItem("canvas_size", app.canvas_size);
+    localStorage.setItem("current_color", app.current_color);
+    localStorage.setItem("previous_color",  app.previous_color);
+    localStorage.setItem("instrument", app.instrument);
+    localStorage.setItem("image_data", app.image_data);
 
 })

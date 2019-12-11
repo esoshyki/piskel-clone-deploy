@@ -19,8 +19,6 @@ export default class Color {
             this.previous_color.style.background = new_previous_color;
             this.app.previous_color = new_previous_color;
             this.previous_color.dataset.color = new_previous_color;
-            console.log(this.app.current_color);
-            console.log(this.app.previous_color);
         }
     }
 

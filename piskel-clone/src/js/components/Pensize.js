@@ -14,7 +14,6 @@ export default class Pensize {
                 e.target.classList.add('selected');
             }
         }
-        console.log(this.app.pensize)
     }
 
     start() {
@@ -29,7 +28,7 @@ export default class Pensize {
             elem.className = '_item';
             elem.innerHTML = `${el}x`;
             elem.dataset.pensize = el;
-            if (el === 4) {
+            if (el == this.app.pensize) {
                 elem.classList.add('selected');
                 this.selected = elem;
             }
