@@ -8,20 +8,6 @@ main
         +flex()
         width: 300px
         margin-bottom: -650px
-        @import './_pensize'
-        ._change-canvas-size 
-            +flex
-            width: 100%
-
-            ._item
-                +button
-            
-            .selected
-                border: 2px solid red
-
-        .selected
-            border: 2px solid red
-
 
         ._artist
             +flex(row, space-between)
@@ -50,60 +36,4 @@ main
             .selected 
                 border: 2px solid red
 
-        ._color_menu
-            +flex
-            margin-top: 20px
-
-            div._line
-                +flex(row)
-                width: 100%
-                margin-bottom: 5px
-                
-                ._color 
-                    width: 64px
-                    height: 64px
-                    border: 1px solid black
-
-                ._prev_color:hover
-                    cursor: pointer
-
-                div:last-child 
-                    width: 200px
-                    text-align: center
-
-        ._color_pallete 
-            +flex
-        
-            ._rainbow 
-                +flex(row)
-                width: 100%
-                flex-wrap: wrap 
-
-                ._item
-                    width: 64px
-                    height: 64px
-                    border: 1px solid black
-                    margin: 5px
-                    &:hover
-                        cursor: pointer
-
-                div[color="#FF0000"]
-                    background: #FF0000
-
-                div[color="#FFA500"]
-                    background: #FFA500
-
-                div[color="#FFFF00"]
-                    background: #FFFF00
-
-                div[color="#008000"]
-                    background: #008000
-
-                div[color="#0000FF"]
-                    background: #0000FF
-
-                div[color="#00008B"]
-                    background: #00008B
-
-                div[color="#831383"]
-                    background: #831383
+ 

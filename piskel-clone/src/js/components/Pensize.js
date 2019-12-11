@@ -6,7 +6,7 @@ export default class Pensize {
     }
 
     handling(e) {
-        if (e.target.className = '_item') {
+        if (e.target.classList[0] === '_item') {
             this.app.pensize = e.target.dataset.pensize;
             if (!e.target.classList.contains('selected')) {
                 this.selected.classList.remove('selected');
