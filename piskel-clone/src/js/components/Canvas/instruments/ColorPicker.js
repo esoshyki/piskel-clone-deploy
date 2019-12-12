@@ -18,7 +18,7 @@ export default class ColorPicker {
         }
 
         const color = getColor(square);
-
+        console.log(color)
         this.app.app.color_controll.changeColor(color);
 
     }

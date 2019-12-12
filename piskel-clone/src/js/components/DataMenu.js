@@ -40,6 +40,6 @@ export default class DataMenu {
         this.data_loader.start();
 
         this.grayscale.addEventListener('click', this.app.canvas_center.grayscale);
-        this.clear_canvas.addEventListener('click', () => localStorage.clear())
+        this.clear_canvas.addEventListener('click', () => this.app.canvas_center.clear_canvas())
     }
 }

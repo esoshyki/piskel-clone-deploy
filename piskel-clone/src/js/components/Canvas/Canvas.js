@@ -74,7 +74,9 @@ export default class Canvas {
     }
 
     clear_canvas() {
-        this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.width)
+        this.ctx.fillStyle = '#FFFFFF';
+        this.ctx.fillRect( 0, 0, this.canvas.width, this.canvas.width);
+        this.ctx.fillStyle = this.app.current_color;
     }
 
     getImageData() {
@@ -143,7 +145,7 @@ export default class Canvas {
         }
         else {
             const color = this.app.current_color;
-            this.ctx.fillStyle = '#ffffff';
+            this.ctx.fillStyle = 'white';
             this.ctx.fillRect(0, 0, this.app.canvas_size, this.app.canvas_size);
             this.ctx.fillStyle = color;
         }
