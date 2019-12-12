@@ -1,15 +1,18 @@
-import DataLoader from "./DataLoader";
+import DataLoader from './DataLoader';
 
 export default class DataMenu {
     constructor(App) {
+
         this.app = App;
         this.input = document.createElement('input');
         this.grayscale = document.createElement('div');
         this.clear_canvas = document.createElement('div');
         this.data_loader = new DataLoader(this);
+
     }
 
     start() {
+
         const fragment = document.createDocumentFragment();
         const content = document.createElement('div');
         content.className = '_data_menu';
@@ -20,13 +23,13 @@ export default class DataMenu {
 
         city_menu.className = '_data_menu_town';
         const title = document.createElement('h4');
-        title.innerHTML = 'Load random image'
+        title.innerHTML = 'Load random image';
         const label = document.createElement('label');
         label.className = '_label';
         label.innerHTML = 'Choose Town';
         city_menu.appendChild(title);
         city_menu.appendChild(label);
-        city_menu.appendChild(this.input)
+        city_menu.appendChild(this.input);
 
         this.grayscale.className = '_grayscale';
         this.grayscale.innerHTML = 'To grayscale';
@@ -40,6 +43,7 @@ export default class DataMenu {
         this.data_loader.start();
 
         this.grayscale.addEventListener('click', this.app.canvas_center.grayscale);
-        this.clear_canvas.addEventListener('click', () => this.app.canvas_center.clear_canvas())
+        this.clear_canvas.addEventListener('click', () => this.app.canvas_center.clear_canvas());
+
     }
 }

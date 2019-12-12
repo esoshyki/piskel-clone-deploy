@@ -1,15 +1,19 @@
 export default class Color {
     constructor(App) {
+
         this.app = App;
         this.color_content = document.createElement('div');
         this.current_color = document.createElement('div');
         this.previous_color = document.createElement('div');
         this.pallete = document.createElement('div');
         this.color_menu = document.createElement('div');
-    };
+
+    }
 
     changeColor(color) {
+
         if (color !== this.app.current_color) {
+
             const new_previous_color = this.app.current_color;
 
             this.current_color.style.background = color;
@@ -19,34 +23,42 @@ export default class Color {
             this.previous_color.style.background = new_previous_color;
             this.app.previous_color = new_previous_color;
             this.previous_color.dataset.color = new_previous_color;
+
         }
+
     }
 
     handle(e) {
-        const target = e.target;
+
+        const { target } = e;
         if (target.className === '_item') {
-            const color = target.dataset.color;
+
+            const { color } = target.dataset;
             this.changeColor(color);
+
         }
+
     }
 
     start() {
 
         const fragment = document.createDocumentFragment();
         this.color_content.className = '_color_menu';
-        this.color_menu.className ='_colors';
+        this.color_menu.className = '_colors';
         this.pallete.className = '_pallete';
         this.current_color.className = '_item';
         this.previous_color.className = '_item';
 
         const colors = ['#FF0000', '#FFA500', '#FFFF00', '#008000', '#0000FF', '#00008B', '#831383'];
-        colors.forEach(el => {
+        colors.forEach((el) => {
+
             const elem = document.createElement('div');
             elem.className = '_item';
             elem.dataset.color = el;
             elem.style.background = el;
             this.pallete.appendChild(elem);
-        })
+
+        });
 
         this.current_color.style.background = this.app.current_color;
         this.current_color.dataset.color = this.app.current_color;
@@ -78,5 +90,6 @@ export default class Color {
         document.querySelector('.menu').appendChild(fragment);
 
         this.color_content.addEventListener('click', this.handle.bind(this));
+
     }
 }
