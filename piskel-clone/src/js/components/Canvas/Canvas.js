@@ -144,10 +144,7 @@ export default class Canvas {
 
         }
         else {
-            const color = this.app.current_color;
-            this.ctx.fillStyle = 'white';
-            this.ctx.fillRect(0, 0, this.app.canvas_size, this.app.canvas_size);
-            this.ctx.fillStyle = color;
+            this.clear_canvas();
         }
         this.canvas.addEventListener('mousedown', this.draw.bind(this))
         window.onunload = () => {
