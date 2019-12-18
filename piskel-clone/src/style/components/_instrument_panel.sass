@@ -1,0 +1,25 @@
+.instrument-panel
+    +flex(row)
+    width: 100%
+
+    ._item 
+        +button
+        width: 64px
+        height: 64px
+        margin: 2px
+        border: 1px solid black
+        &:hover
+            cursor: pointer
+            background-size: 90%
+    
+    ._item[data-instrument='pencil'] 
+        background: url('~../assets/icons/pancil.png') no-repeat
+
+    ._item[data-instrument='fill_bucket']
+        background: url('~../assets/icons/fill_bucket.png') no-repeat
+
+    ._item[data-instrument='color_picker']
+        background: url('~../assets/icons/color_picker.png') no-repeat
+
+    .selected 
+        border: 2px solid red !important

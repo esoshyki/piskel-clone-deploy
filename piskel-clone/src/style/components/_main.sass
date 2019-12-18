@@ -1,0 +1,38 @@
+   
+main 
+    margin-top: 10px
+    +flex(row, space-around, end)
+
+    .menu 
+        +flex()
+        width: 300px
+        margin-bottom: -650px
+
+        ._artist
+            +flex(row, space-between)
+            width: 100%
+            margin-top: 20px
+
+            ._artist_item 
+                width: 64px
+                height: 64px
+                margin: 2px
+                border: 1px solid black
+
+            ._artist_item[data-instrument='pencil']
+                background: url('~../assets/icons/pancil.png') no-repeat
+
+            ._artist_item[data-instrument='fill_bucket']
+                background: url('~../assets/icons/fill_bucket.png') no-repeat
+
+            ._artist_item[data-instrument='color_picker']
+                background: url('~../assets/icons/color_picker.png') no-repeat
+
+            ._artist_item
+                &:hover
+                    cursor: pointer
+                    background-size: 90%
+            .selected 
+                border: 2px solid red
+
+ 
