@@ -16,15 +16,15 @@ export default class Instrument {
         const target = this.app.frames.canvas.content;
         if (instrument === 'pencil') {
 
-            target.style.cursor = "url('../src/assets/cursors/pencil.cur'), pointer";
+            target.style.cursor = "url('../src/assets/cursors/pencil.cur'), url(http://www.rw-designer.com/cursor-extern.php?id=131078), auto";
 
         } else if (instrument === 'fill_bucket') {
 
-            target.style.cursor = "url('../src/assets/cursors/bucket.cur'), pointer";
+            target.style.cursor = "url('../src/assets/cursors/bucket.cur'), url(http://www.rw-designer.com/cursor-extern.php?id=24051), auto";
 
         } else if (instrument === 'color_picker') {
 
-            target.style.cursor = "url('../src/assets/cursors/color-picker.cur'), pointer";
+            target.style.cursor = "url('../src/assets/cursors/color-picker.cur'), url(http://www.rw-designer.com/cursor-extern.php?id=360), auto";
 
         }
 
