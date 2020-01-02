@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'public/dist'),
-    publicPath: '/',
+    publicPath: './',
     filename: 'bundle.js'
   },
   module: {
@@ -24,7 +24,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[path][name].[ext]',
+
             },
           }
         ]
