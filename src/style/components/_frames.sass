@@ -1,0 +1,73 @@
+.__frames 
+    +flex(column)
+    padding: 0
+    margin: 0
+
+    .__fake
+        width: 96px
+        height: 96px
+        background: gray
+
+    .__item 
+        position: relative !important
+        border: 1px solid $fouth_color
+        margin: 0 0 5px 0
+        padding: 0
+        background-image: url('../assets/bg-canvas.png')
+        background-repeat: repeat
+        &:last-child
+            margin: 0
+
+    
+        &:hover
+            cursor: pointer
+
+        div
+            position: absolute
+            width: 25px
+            height: 25px
+            background: yellow
+            top: 0px
+            left: 0px
+            color: black
+            text-align: center
+
+        div.__copy
+            left: 74px
+            top: 0px
+            background-image: url('../assets/icons/copy-content.svg')
+            background-size: cover
+            &:hover
+                cursor: pointer
+                top: 2px
+
+        div.__delete 
+            left: 74px
+            top: 74px
+            background-image: url('../assets/icons/delete.svg')
+            background-size: cover
+            &:hover
+                cursor: pointer
+                top: 72px
+
+        div.__move
+            left: 0px
+            top: 74px !important
+            background-image: url('../assets/icons/move.svg')
+            background-size: cover
+            &:hover
+                cursor: pointer
+                top: -1px
+
+        canvas
+            image-rendering: pixelated
+
+    .selected 
+        border: 3px solid yellow
+
+.__add-frame
+    width: 100%
+    +button
+    padding: 8px
+    margin-top: 5px
+
