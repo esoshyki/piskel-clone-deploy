@@ -13,6 +13,7 @@ export default class App {
         this.previous_color = data.previous_color || '#ffffff';
         this.instrument = data.instrument || 'pencil';
         this.image_data = data.image_data || null;
+        this.canvas_size = data.canvas_size || 512;
 
         this.pensize_controll = new Pensize(this);
         this.color_controll = new Color(this);
@@ -45,6 +46,7 @@ export default class App {
             localStorage.setItem('frames', arr.join('###'));
             localStorage.setItem('selected_frame', this.frames.selected);
             localStorage.setItem('player_speed', this.frames.player.speed);
+            localStorage.setItem('canvas_size', this.canvas_size);
 
         };
 

@@ -25,27 +25,22 @@ export default class Pencil {
             if (new_square !== sq) {
 
                 drawSquare(new_square);
-                const image_data = this.app.canvas.toDataURL('image/png');
-                this.app.frame.put_image_data(image_data);
+                this.app.reload_frame()
 
             }
 
         };
 
-        this.drawSquare(square);
-        this.app.canvas.addEventListener('mousemove', drawPath);
-        this.app.canvas.addEventListener('mouseup', () => {
-
+        const remove = () => {
             this.app.shadow_canvas.style.zIndex = '5';
             this.app.canvas.removeEventListener('mousemove', drawPath);
+            this.app.canvas.removeEventListener('mouseup', remove);
+            this.app.canvas.removeEventListener('mouseleave', remove)
+        }
 
-        });
-        this.app.canvas.addEventListener('mouseleave', () => {
-
-            this.app.canvas.removeEventListener('mousemove', drawPath);
-            this.app.shadow_canvas.style.zIndex = '5';
-
-        });
-
+        drawSquare(square);
+        this.app.canvas.addEventListener('mousemove', drawPath, false);
+        this.app.canvas.addEventListener('mouseup', remove);
+        this.app.canvas.addEventListener('mouseleave', remove);
     }
 }

@@ -71,6 +71,8 @@ export default class Frames {
         this.add_selection(frame);
         this.player.start();
 
+        this.canvas.transform.start();
+
         this.content.onunload = () => {
 
             const arr = this.frames.reduce((a, b) => {

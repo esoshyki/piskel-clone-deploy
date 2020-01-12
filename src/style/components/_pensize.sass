@@ -2,13 +2,21 @@
     +flex(column, center, stretch)
     box-sizing: content-box
 
+    span 
+        margin: 10px 0
+        font-size: 1rem
+        text-align: center
+
     ._line 
-        width: 100%
         +flex(row, space-between)
+        flex-wrap: wrap
+        width: 100px
 
         ._item 
             +button
-            width: 40px
+            width: 20px
+            height: 20px
+            font-size: 0.7rem
 
         .selected
             border: 2px solid red !important

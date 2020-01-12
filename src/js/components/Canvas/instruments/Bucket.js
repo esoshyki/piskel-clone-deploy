@@ -65,7 +65,8 @@ export default class Bucket {
 
         };
 
-        if (color === this.app.app.current_color) return null;
+
+        if (color.toUpperCase() === this.app.app.current_color) return null;
 
         let x; let y; let z;
 
@@ -126,6 +127,6 @@ export default class Bucket {
             travel(leftPoints.pop());
 
         }
-
+        this.app.reload_frame();
     }
 }

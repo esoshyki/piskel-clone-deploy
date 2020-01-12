@@ -1,26 +1,54 @@
 .instrument-panel
     +flex(row)
+    flex-wrap: wrap
     width: 100%
 
     ._item 
         +button
         padding: 0px
-        width: 64px
-        height: 64px
+        width: 46px
+        height: 46px
         margin: 2px
         border: 1px solid black
+        background: url('~../assets/icons.png') no-repeat
         &:hover
             cursor: pointer
-            background-size: 90%
     
     ._item[data-instrument='pencil'] 
-        background: url('~../assets/icons/pancil.png') no-repeat
+        background-position: -182px -92px
 
     ._item[data-instrument='fill_bucket']
-        background: url('~../assets/icons/fill_bucket.png') no-repeat
+        background-position: -228px -92px
+
+    ._item[data-instrument='all_pixel_bucket']
+        background-position: -228px -138px
 
     ._item[data-instrument='color_picker']
-        background: url('~../assets/icons/color_picker.png') no-repeat
+        background-position: -274px 0px
+
+    ._item[data-instrument='mirror']
+        background-position: 0px -136px
+
+    ._item[data-instrument='eraser']
+        background-position: -46px -228px
+
+    ._item[data-instrument='stroke']
+        background-position: -46px -136px
+
+    ._item[data-instrument='circle']
+        background-position: -228px -46px
+
+    ._item[data-instrument='rectangle']
+        background-position: -182px 0px  
+
+    ._item[data-instrument='dithering']
+        background-position: 0px -228px
+
+    ._item[data-instrument='lighten']
+        background-position: -138px -228px
+
+    ._item[data-instrument='move']
+        background-position: -184px -228px
 
     .selected 
         border: 2px solid red !important

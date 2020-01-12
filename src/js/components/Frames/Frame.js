@@ -76,7 +76,11 @@ export default class Frame {
 
         const img = new Image(this.canvas.width, this.canvas.width);
         img.src = image_data;
-        img.onload = () => this.ctx.drawImage(img, 0, 0);
+
+        img.onload = () => {
+            this.ctx.clearRect(0, 0, 32, 32)
+            this.ctx.drawImage(img, 0, 0);
+        }
 
     }
 

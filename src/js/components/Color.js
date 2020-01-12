@@ -1,3 +1,7 @@
+import create from './Create';
+
+import ColorPallete from "./ColorPallete";
+
 export default class Color {
     constructor(App) {
 
@@ -7,6 +11,9 @@ export default class Color {
         this.previous_color = document.createElement('div');
         this.pallete = document.createElement('div');
         this.color_menu = document.createElement('div');
+
+        this.color_pallete = new ColorPallete(this);
+        this.header = document.querySelector('header');
 
     }
 
@@ -23,7 +30,7 @@ export default class Color {
             this.previous_color.style.background = new_previous_color;
             this.app.previous_color = new_previous_color;
             this.previous_color.dataset.color = new_previous_color;
-
+            this.header.style.background = color;
         }
 
     }
@@ -40,12 +47,17 @@ export default class Color {
 
     }
 
+    showPanel() {
+        this.color_pallete.panel.style.display = 'block'
+    }
+
     start() {
 
         const fragment = document.createDocumentFragment();
         this.color_content.className = '_color_menu';
         this.color_menu.className = '_colors';
         this.pallete.className = '_pallete';
+        this.pallete.style.display = 'none';
         this.current_color.className = '_item';
         this.previous_color.className = '_item';
 
@@ -79,16 +91,15 @@ export default class Color {
         this.color_menu.appendChild(line1);
         this.color_menu.appendChild(line2);
 
-        const title = document.createElement('h4');
-        title.innerHTML = 'Color Pallete';
-
         this.color_content.appendChild(this.color_menu);
-        this.color_content.appendChild(title);
         this.color_content.appendChild(this.pallete);
         fragment.appendChild(this.color_content);
         document.querySelector('.menu').appendChild(fragment);
 
         this.color_content.addEventListener('click', this.handle.bind(this));
+        console.log(this.app.current_color);
+        this.header.style.background = this.app.current_color;
+        this.color_pallete.start();
 
     }
 }

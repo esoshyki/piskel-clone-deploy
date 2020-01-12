@@ -1,13 +1,13 @@
 ### codejam-canvas
 
 
-to run the app write in terminal **npm install**
+to run the app write in terminal **yarn install**
 
-then **npm start to watch files with webpack**
+then **yarn start to watch files with webpack**
 
-or **npm run build** to build production
+or **yarn build** to build production
 
-write **npm run test** for testing js files by eslint
+write **yarn lint** for testing js files by eslint
 
-visit [ZEIT.CO](https://codejam-canvas-git-zeit.esoshyki.now.sh/) to see deployed version (old version, new version will deploy after checking by mentor)
+visit [ZEIT.CO](https://piskel-clone-deploy.now.sh/) to see deployed version
 

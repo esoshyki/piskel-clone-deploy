@@ -33,7 +33,7 @@ export default class Pensize {
         content.className = '_pen-size';
         const span = document.createElement('span');
         span.innerHTML = 'Pen size';
-        [1, 2, 4, 8].forEach((el) => {
+        [1, 2, 3, 4].forEach((el) => {
 
             const elem = create('div', {}, '_item');
             elem.innerHTML = `${el}x`;

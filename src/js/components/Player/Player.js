@@ -1,9 +1,11 @@
 import create from '../CreateNode';
+import GifCreator from './GifCreator';
 
 export default class Player {
     constructor(frames) {
 
         this.frames = frames;
+        this.gifCreator = new GifCreator(this);
         this.content = create('div', {
             display: 'flex',
             flexDirection: 'column',
@@ -76,6 +78,17 @@ export default class Player {
             this.canvasSizeConteiner.appendChild(elem);
 
         });
+
+        this.menu = create('div', {
+            display: 'flex',
+            flexDirection: 'row',
+            height: '70px'
+        }, '__menu');
+
+        this.saveGif = create('button', {
+            width: '60px',
+            height: '60px'
+        }, '__saveGIf')
 
         this.content.appendChild(this.canvasSizeConteiner);
 
@@ -155,6 +168,8 @@ export default class Player {
         this.content.appendChild(this.player_canvas_container);
         this.content.appendChild(this.speed_node);
         this.content.appendChild(this.input);
+        this.menu.appendChild(this.saveGif);
+        this.content.appendChild(this.menu);
         document.querySelector('main').appendChild(this.content);
         this.input.addEventListener('change', (e) => {
 
@@ -171,6 +186,8 @@ export default class Player {
 
         this.interval = setInterval(this.animate.bind(this), Math.floor(1000 / this.speed));
         document.addEventListener('fullscreenchange', this.fullScreenHandle.bind(this));
+
+        this.saveGif.addEventListener('click', this.gifCreator.createGif)
 
     }
 }

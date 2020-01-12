@@ -1,12 +1,14 @@
    
 main 
     margin-top: 10px
-    +flex(row, space-around, end)
+    display: grid
+    grid-template-columns: 120px 5fr 130px 200px
+    align-items: start
 
     .menu 
         +flex()
-        width: 300px
-        margin-bottom: -650px
+        width: 120px
+        margin-bottom: -0px
 
         ._artist
             +flex(row, space-between)

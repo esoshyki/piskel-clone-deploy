@@ -2,6 +2,16 @@ import Pencil from './instruments/Pencil';
 import Bucket from './instruments/Bucket';
 import ColorPicker from './instruments/ColorPicker';
 import create from '../CreateNode';
+import Eraser from './instruments/Eraser';
+import Stroke from './instruments/Stroke';
+import Circle from './instruments/Circle';
+import Rectangle from './instruments/Rectangle';
+import Mirror from './instruments/Mirror';
+import Dithering from './instruments/Dithering';
+import AllPixelBucket from './instruments/AllPixelBucket';
+import Lighten from './instruments/Lighten';
+import Move from './instruments/Move';
+import Transform from './Transform';
 
 export default class Canvas {
     constructor(frames) {
@@ -9,18 +19,55 @@ export default class Canvas {
         this.frames = frames;
         this.app = frames.app;
 
-        this.content = create('div', {}, 'canvas-container');
-        this.canvas = create('canvas', {}, 'canvas_main');
+        this.content = create('div', {
+            overflow: 'hidden'
+        }, 'canvas-container');
+        this.canvas = create('canvas', {
+            width: `${this.app.canvas_size}px`,
+            height: `${this.app.canvas_size}px`,
+            overflow: 'hidden'
+        }, 'canvas_main');
         this.shadow_canvas = create('canvas', {
             opacity: '0.6',
+            width: `${this.app.canvas_size}px`,
+            height: `${this.app.canvas_size}px`,
+            overflow: 'hidden'
         }, 'shadow-canvas');
+        this.path_canvas = create('canvas', {
+            position: 'absolute',
+            width: `${this.app.canvas_size}px`,
+            height: `${this.app.canvas_size}px`,
+            overflow: 'hidden'
+        }, 'path-canvas');
+
+        this.background = create('div', {
+            position: 'absolute',
+            width: `${this.app.canvas_size}px`,
+            height: `${this.app.canvas_size}px`,
+            overflow: 'hidden'      
+        }, 'backround')
+        this.path_canvas.height = 32;
+        this.path_canvas.width = 32;
+
         this.ctx = this.canvas.getContext('2d');
+        this.path_ctx = this.path_canvas.getContext('2d');
 
         this.pencil = new Pencil(this);
         this.bucket = new Bucket(this);
         this.color_picker = new ColorPicker(this);
+        this.eraser = new Eraser(this);
+        this.stroke = new Stroke(this);
+        this.circle = new Circle(this);
+        this.rectangle = new Rectangle(this);
+        this.mirror = new Mirror(this);
+        this.dithering = new Dithering(this);
+        this.all_pixel_bucket = new AllPixelBucket(this);
+        this.ligten = new Lighten(this);
+        this.move = new Move(this);
+        this.transform = new Transform(this);
 
         this.grayscale = this.grayscale.bind(this);
+        this.reload_frame = this.reload_frame.bind(this);
         this.frame = null;
         document.querySelector('main').appendChild(this.content);
 
@@ -32,12 +79,12 @@ export default class Canvas {
 
     }
 
-    getSquare(e) {
+    getSquare(e, _size) {
 
-        const resize = 512 / this.canvas.width;
-        const x = Math.floor((e.pageX - this.content.offsetLeft) / resize);
-        const y = Math.floor((e.pageY - this.content.offsetTop) / resize);
-        const size = this.app.pensize;
+        const resize = this.app.canvas_size / this.canvas.width;
+        const x = Math.floor((e.pageX - this.canvas.offsetLeft - this.content.offsetLeft) / resize);
+        const y = Math.floor((e.pageY - this.canvas.offsetTop - this.content.offsetTop) / resize);
+        const size = _size || parseInt(this.app.pensize);
         const startX = size * Math.floor(x / size);
         const startY = size * Math.floor(y / size);
         return [startX, startY, size];
@@ -81,12 +128,20 @@ export default class Canvas {
     draw(e) {
 
         e.preventDefault();
+
         this.shadow_canvas.style.zIndex = '0';
-        this.ctx.fillStyle = this.app.current_color;
+        if (e.which === 1) {
+            this.ctx.fillStyle = this.app.current_color ;
+        }
+        else if (e.which === 3) {
+            this.ctx.fillStyle = this.app.previous_color;
+        }
+
         const square = this.getSquare(e);
+        let instrument;
 
         if (this.app.instrument === 'pencil') {
-
+            instrument = this.pencil;
             this.pencil.draw(square);
 
         }
@@ -102,9 +157,51 @@ export default class Canvas {
             this.color_picker.pick_color(square);
 
         }
+        
+        if (this.app.instrument === 'mirror') {
 
-        const image_data = this.canvas.toDataURL('image/png');
-        this.frame.put_image_data(image_data);
+            this.mirror.draw(square, e);
+
+        }
+
+        if (this.app.instrument === 'eraser') {
+
+            this.eraser.clear(square)
+
+        }
+
+        if (this.app.instrument === 'stroke') {
+            this.path_ctx.fillStyle = this.app.current_color;
+            this.stroke.draw(square)
+
+        }
+
+        if (this.app.instrument === 'circle') {
+            this.path_ctx.fillStyle = this.app.current_color;
+            this.circle.draw(square);
+        }
+
+        if (this.app.instrument === 'rectangle') {
+            this.path_ctx.fillStyle = this.app.current_color;
+            this.rectangle.draw(square);
+        }
+
+        if (this.app.instrument === 'dithering') {
+            this.dithering.draw(square);
+        }
+
+        if (this.app.instrument ==='all_pixel_bucket') {
+            this.all_pixel_bucket.draw(square);
+        }
+
+        if (this.app.instrument === 'lighten') {
+            this.ligten.draw(square, e);
+        }
+
+        if (this.app.instrument === 'move') {
+            this.app.pensize = 1;
+            this.move.move(square, e);
+        }
 
     }
 
@@ -114,6 +211,11 @@ export default class Canvas {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.width);
         this.ctx.fillStyle = this.app.current_color;
 
+    }
+
+    reload_frame() {
+        const image_data = this.canvas.toDataURL('image/png');
+        this.frame.put_image_data(image_data);
     }
 
     reload_canvas(image_data) {
@@ -194,8 +296,15 @@ export default class Canvas {
         const ctx = this.shadow_canvas.getContext('2d');
         this.shadow_canvas.style.zIndex = '5';
         ctx.fillStyle = 'grey';
-        let start_square = this.getSquare(e); // Start position of mouse
-
+        let size;
+        if (this.app.instrument === 'all_pixel_bucket') {
+            size = 1
+        }
+        else {
+            size = this.app.pensize;
+        }
+        let start_square = this.getSquare(e, size); // Start position of mouse
+        console.log(start_square)
         const draw_shadow = (sq) => {
 
             ctx.fillRect(sq[0], sq[1], sq[2], sq[2]);
@@ -213,8 +322,14 @@ export default class Canvas {
         draw_shadow(start_square);
 
         const mousemove = (event) => {
-
-            const square = this.getSquare(event);
+            let size;
+            if (this.app.instrument === 'all_pixel_bucket') {
+                size = 1
+            }
+            else {
+                size = this.app.pensize;
+            }
+            const square = this.getSquare(event, size);
             if (!check_leaving_square(square)) {
 
                 clear_rect();
@@ -229,18 +344,47 @@ export default class Canvas {
 
     }
 
+
+    resize() {
+
+        [this.canvas, this.path_canvas, this.background, this.shadow_canvas].forEach(el => {
+            const width = this.content.offsetWidth;
+            const height = this.content.offsetHeight;
+            const left = ((width - this.app.canvas_size) / 2);
+            const top = ((height - this.app.canvas_size) / 2);
+            el.style.left = `${left}px`;
+            el.style.top = `${top}px`;
+            el.style.width = `${this.app.canvas_size}px`;
+            el.style.height = `${this.app.canvas_size}px`;
+        })
+    }
+
+    mWheel(e) {
+        const change = 32 * (e.deltaY / 100);
+        e.preventDefault()
+        const result = this.app.canvas_size + change
+        this.app.canvas_size = result > 864 || result < 64 ? this.app.canvas_size : result;
+        this.resize()
+    }
+
     start() {
+
 
         this.canvas.width = 32; this.canvas.height = 32;
         this.shadow_canvas.width = 32; this.shadow_canvas.height = 32;
         this.content.appendChild(this.canvas);
+        this.content.appendChild(this.path_canvas);
         this.content.appendChild(this.shadow_canvas);
+        this.content.appendChild(this.background);
         this.ctx.imageSmoothingEnabled = false;
-
+        this.content.oncontextmenu = () => false
+        this.resize()
         this.content.addEventListener('mousedown', this.draw.bind(this));
 
         this.content.addEventListener('mouseenter', this.shadow_handling.bind(this));
-
+        
+        window.addEventListener('resize', this.resize.bind(this))
+        this.content.addEventListener('wheel', this.mWheel.bind(this))
     }
 
     remove_canvas() {
